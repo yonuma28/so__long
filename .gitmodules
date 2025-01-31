@@ -1,0 +1,6 @@
+[submodule "intra-uuid-80235551-1e16-4be9-a57e-5d6164034d76-5673244-yonuma"]
+	path = intra-uuid-80235551-1e16-4be9-a57e-5d6164034d76-5673244-yonuma
+	url = git@vogsphere-v2.42tokyo.jp:vogsphere/intra-uuid-80235551-1e16-4be9-a57e-5d6164034d76-5673244-yonuma
+[submodule "gnl"]
+	path = gnl
+	url = git@vogsphere-v2.42tokyo.jp:vogsphere/intra-uuid-80235551-1e16-4be9-a57e-5d6164034d76-5673244-yonuma
