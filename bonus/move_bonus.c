@@ -12,155 +12,189 @@
 
 #include "../so_long.h"
 
+static void	process_goal_achievement(t_map *map)
+{
+	printf("GOAL!!\nresult: %d\n", map->count);
+	exit(0);
+}
+
+static void	collect_item_if_any(t_map *map, t_coord pos)
+{
+	if (map->map[pos.y][pos.x] == 'C')
+	{
+		map->count_tea++;
+		map->map[pos.y][pos.x] = '0';
+	}
+	else if (map->map[pos.y][pos.x] == 'O')
+	{
+		map->count_tea++;
+		map->map[pos.y][pos.x] = '0';
+	}
+}
+
+static void	move_player_on_map(t_map *map, t_coord old_pos, t_coord new_pos)
+{
+	map->map[new_pos.y][new_pos.x] = 'P';
+	map->map[old_pos.y][old_pos.x] = '0';
+	map->count++;
+}
+
+static void	handle_horizontal_move(t_map *map, t_coord p_pos, int dx)
+{
+	t_coord	next_pos;
+
+	next_pos.y = p_pos.y;
+	next_pos.x = p_pos.x + dx;
+	if (next_pos.x < 0 || next_pos.x >= map->width)
+		return;
+	if (map->map[next_pos.y][next_pos.x] == 'E')
+		process_goal_achievement(map);
+	if (map->map[next_pos.y][next_pos.x] == '0' ||
+		map->map[next_pos.y][next_pos.x] == 'C' ||
+		map->map[next_pos.y][next_pos.x] == 'O')
+	{
+		collect_item_if_any(map, next_pos);
+		move_player_on_map(map, p_pos, next_pos);
+	}
+}
+
 void	move_a_bonus(t_map *map)
 {
-	int	x;
-	int	y;
+	t_coord	p_pos;
 
 	if (map->is_jumping)
-		return ;
-	search_player(map, &x, &y);
-	if (x > 0 && (map->map[y][x - 1] == '0' || map->map[y][x - 1] == 'C'))
-	{
-		if (map->map[y][x - 1] == 'C' || map->map[y][x - 1] == 'O')
-			map->count_tea++;
-		if (map->map[y][x - 1] == 'E')
-		{
-			printf("GOAL!!\nresult: %d\n", map->count);
-			exit(0);
-		}
-		map->map[y][x - 1] = 'P';
-		map->map[y][x] = '0';
-		map->count++;
-	}
+		return;
+	search_player(map, &p_pos.x, &p_pos.y);
+	handle_horizontal_move(map, p_pos, -1);
 }
 
 void	move_d_bonus(t_map *map)
 {
-	int	x;
-	int	y;
+	t_coord	p_pos;
 
 	if (map->is_jumping)
-		return ;
-	search_player(map, &x, &y);
-	if (x < map->width - 1 && (map->map[y][x + 1] == '0' ||
-		map->map[y][x + 1] == 'C'))
-	{
-		if (map->map[y][x + 1] == 'C' || map->map[y][x + 1] == 'O')
-			map->count_tea++;
-		if (map->map[y][x + 1] == 'E')
-		{
-			printf("GOAL!!\nresult: %d\n", map->count);
-			exit(0);
-		}
-		map->map[y][x + 1] = 'P';
-		map->map[y][x] = '0';
-		map->count++;
-	}
+		return;
+	search_player(map, &p_pos.x, &p_pos.y);
+	handle_horizontal_move(map, p_pos, 1);
 }
 
-void	move_w_0(t_map *map, int *x, int *y, int *jump)
+static void	perform_jump_one_step(t_map *map, t_player_state *p_state)
 {
-	if (*y - 1 < 0 || map->map[*y - 1][*x] == '1')
-		*jump = 0;
-	if (map->map[*y - 1][*x] == 'E')
+	t_coord	next_pos;
+
+	next_pos.x = p_state->pos.x;
+	next_pos.y = p_state->pos.y - 1;
+	if (next_pos.y < 0 || map->map[next_pos.y][next_pos.x] == '1')
 	{
-		printf("GOAL!!\nresult: %d\n", map->count);
-		exit(0);
+		p_state->jump_remaining = 0;
+		return;
 	}
-	if (map->map[*y - 1][*x] == 'C')
-		map->map[*y - 1][*x] = '0';
-	map->map[*y - 1][*x] = 'P';
-	map->map[*y][*x] = '0';
-	*y = *y - 1;
-	*jump = *jump - 1;
+	if (map->map[next_pos.y][next_pos.x] == 'E')
+		process_goal_achievement(map);
+	collect_item_if_any(map, next_pos);
+	move_player_on_map(map, p_state->pos, next_pos);
+	p_state->pos.y = next_pos.y;
+	p_state->jump_remaining--;
 }
 
-void	move_w_O(t_map *map, int *x, int *y, int *jump)
+static void	perform_jump_over_obstacle(t_map *map, t_player_state *p_state)
 {
-	if (*y - 2 < 0 || map->map[*y - 2][*x] == '1')
+	t_coord	landing_pos;
+
+	landing_pos.x = p_state->pos.x;
+	landing_pos.y = p_state->pos.y - 2;
+	if (landing_pos.y < 0 || map->map[landing_pos.y][landing_pos.x] == '1')
 	{
-		*jump = 0;
-		return ;
+		p_state->jump_remaining = 0;
+		return;
 	}
-	else
+	if (map->map[p_state->pos.y - 1][p_state->pos.x] != 'O')
 	{
-		if (map->map[*y - 2][*x] == 'E')
-			map->goal3 = true;
-		if (map->map[*y - 2][*x] == 'C')
-			map->map[*y - 2][*x] = '0';
-		map->map[*y - 2][*x] = 'P';
-		map->map[*y][*x] = '0';
-		*y = *y - 2;
-		*jump = *jump - 2;
+		p_state->jump_remaining = 0;
+		return;
 	}
+	if (map->map[landing_pos.y][landing_pos.x] == 'E')
+	{
+		map->goal3 = true;
+		process_goal_achievement(map);
+	}
+	collect_item_if_any(map, landing_pos);
+	move_player_on_map(map, p_state->pos, landing_pos);
+	map->map[p_state->pos.y - 1][p_state->pos.x] = '0';
+	p_state->pos.y = landing_pos.y;
+	p_state->jump_remaining -= 2;
+	if (p_state->jump_remaining < 0)
+		p_state->jump_remaining = 0;
 }
 
 void	move_w_bonus(t_map *map)
 {
-	int	x;
-	int	y;
-	int	jump;
+	t_player_state	p_state;
+	t_coord			next_tile_up;
 
 	if (map->is_jumping)
-		return ;
-	jump = 3;
+		return;
+	search_player(map, &p_state.pos.x, &p_state.pos.y);
+	p_state.jump_remaining = 3;
 	map->is_jumping = true;
-	search_player(map, &x, &y);
-	while (jump > 0)
+	while (p_state.jump_remaining > 0)
 	{
-		if (map->map[y - 1][x] == '1')
-			jump = 0;
-		if (map->map[y - (3 - jump)][x] == 'E')
-		{
-			map->goal3 = true; // map 消しておいて
-			printf("GOAL!!\nresult: %d\n", map->count);
-			exit(0);
-		}
-		if (y > 0 && (map->map[y - 1][x] == '0' ||
-			map->map[y - 1][x] == 'O' || map->map[y - 1][x] == 'E' || map->map[y - 1][x] == 'C'))
-		{
-			if (map->map[y - 1][x] == 'O')
-				move_w_O(map, &x, &y, &jump);
-			else
-				move_w_0(map, &x, &y, &jump);
-		}
+		next_tile_up.x = p_state.pos.x;
+		next_tile_up.y = p_state.pos.y - 1;
+		if (next_tile_up.y < 0 || map->map[next_tile_up.y][next_tile_up.x] == '1')
+			break;
+		if (map->map[next_tile_up.y][next_tile_up.x] == 'O')
+			perform_jump_over_obstacle(map, &p_state);
+		else if (map->map[next_tile_up.y][next_tile_up.x] == '0' ||
+			map->map[next_tile_up.y][next_tile_up.x] == 'C' ||
+			map->map[next_tile_up.y][next_tile_up.x] == 'E')
+			perform_jump_one_step(map, &p_state);
 		else
-		{
-			map->is_jumping = false;
-			return ;
-		}
+			break;
 	}
 	map->is_jumping = false;
 }
 
 void	move_s_bonus(t_map *map)
 {
-	int	x;
-	int	y;
+	t_coord	p_pos;
+	t_coord	obstacle_pos;
+	t_coord	landing_pos;
 
 	if (map->is_jumping)
-		return ;
-	search_player(map, &x, &y);
-	if (map->map[y + 1][x] == 'O')
+		return;
+	search_player(map, &p_pos.x, &p_pos.y);
+	obstacle_pos.x = p_pos.x;
+	obstacle_pos.y = p_pos.y + 1;
+	landing_pos.x = p_pos.x;
+	landing_pos.y = p_pos.y + 2;
+	if (obstacle_pos.y >= map->height || landing_pos.y >= map->height)
+		return;
+	if (map->map[obstacle_pos.y][obstacle_pos.x] == 'O' &&
+		(map->map[landing_pos.y][landing_pos.x] == '0' ||
+		map->map[landing_pos.y][landing_pos.x] == 'C' ||
+		map->map[landing_pos.y][landing_pos.x] == 'E'))
 	{
-		map->map[y + 2][x] = 'P';
-		map->map[y][x] = '0';
+		if (map->map[landing_pos.y][landing_pos.x] == 'E')
+			process_goal_achievement(map);
+		collect_item_if_any(map, landing_pos);
+		move_player_on_map(map, p_pos, landing_pos);
+		map->map[obstacle_pos.y][obstacle_pos.x] = '0';
 	}
 }
 
 void	set_obstacle(t_map *map)
 {
-	int x;
-	int y;
+	t_coord	p_pos;
+	t_coord	obstacle_target_pos;
 
-	search_player(map, &x, &y);
-	if (map->map[y][x] == 'P')
+	search_player(map, &p_pos.x, &p_pos.y);
+	obstacle_target_pos.x = p_pos.x;
+	obstacle_target_pos.y = p_pos.y - 1;
+	if (obstacle_target_pos.y < 0)
+		return;
+	if (map->map[obstacle_target_pos.y][obstacle_target_pos.x] == '0')
 	{
-		if (map->map[y - 1][x] == '0')
-		{
-			map->map[y - 1][x] = 'O';
-			map->map[y][x] = 'P';
-		}
+		map->map[obstacle_target_pos.y][obstacle_target_pos.x] = 'O';
 	}
 }

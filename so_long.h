@@ -28,54 +28,52 @@
 
 typedef struct texture
 {
-    void *img_0;
-    void *img_window;
-    void *img_wall;
-    void *img_PC1;
-    void *img_PC2;
-    void *img_E;
-    void *img_Person1;
-    void *img_Person2;
-    void *img_tea;
-    void *enemy;
-    void *character;
-    void *object;
-    int width;
-    int height;
-    int img_width;
-    int img_height;
-} texture;
+	void	*img_0;
+	void	*img_window;
+	void	*img_wall;
+	void	*img_PC1;
+	void	*img_PC2;
+	void	*img_E;
+	void	*img_Person1;
+	void	*img_Person2;
+	void	*img_tea;
+	void	*enemy;
+	void	*character;
+	void	*object;
+	int		img_width;
+	int		img_height;
+}	texture;
 
 typedef struct map
 {
-    char **map;
-    void *mlx;
-    void *win;
-    int width;
-    int height;
-    int is_invalid;
-    int map_height;
-    int count;
-    int count_tea;
-    int count_teas;
-    int player_x;
-    int player_y;
-    bool is_jumping;
-    bool is_falling;
-    double jump_velocity;
-    double jump_time; 
-    bool is_E;
-    bool goal1;
-    bool goal2;
-    bool goal3;
-    struct texture texture;
-} t_map;
+	char			**map;
+	void			*mlx;
+	void			*win;
+	int				width;
+	int				height;
+	int				is_invalid;
+	int				count;
+	int				count_tea;
+	int				player_x;
+	int				player_y;
+	bool			is_jumping;
+	bool			goal1;
+	bool			goal2;
+	bool			goal3;
+	struct texture	texture;
+}	t_map;
 
 typedef struct s_coord
 {
 	int	x;
 	int	y;
 }	t_coord;
+
+typedef struct s_player_state
+{
+	t_coord	pos;
+	int		jump_remaining;
+}	t_player_state;
 
 // texture
 struct texture set_new_texture(void);
