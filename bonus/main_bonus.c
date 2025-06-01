@@ -67,7 +67,7 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	if (struct_map->count_tea == struct_map->count_teas)
 	{
 		struct_map->goal1 = true;
-		set_ememy(struct_map);
+		set_enemy(struct_map);
 		struct_map->count_tea++;
 		draw_map(struct_map);
 	}
@@ -148,11 +148,9 @@ int	loop_hook(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	void			*mlx;
-	void			*win;
 	struct map		map_struct;
-	struct texture	texture;
 
+	(void)argc;
 	set_mlx_win(&map_struct);
 	map_init(&map_struct);
 	read_map(&map_struct, argv[1]);

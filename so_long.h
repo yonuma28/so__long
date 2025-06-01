@@ -103,7 +103,7 @@ void    search_player(struct map *map, int *x, int *y);
 int     read_map(struct map *map, char *filename);
 
 // enemy
-void    set_ememy(struct map *map);
+void    set_enemy(struct map *map);
 int     enemy(struct map *map);
 void    game_over(struct map *map);
 
