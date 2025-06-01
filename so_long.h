@@ -71,6 +71,12 @@ typedef struct map
     struct texture texture;
 } t_map;
 
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}	t_coord;
+
 // texture
 struct texture set_new_texture(void);
 struct texture set_texture(void);

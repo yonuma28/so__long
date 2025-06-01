@@ -12,108 +12,138 @@
 
 # include "../so_long.h"
 
-void game_over(t_map *map)
+void	game_over(t_map *map)
 {
-    mlx_string_put(map->mlx, map->win, 100, 100, 0x00FF0000, "Game Over");
-    printf("Game Over\n");
-    exit(0);
+	mlx_string_put(map->mlx, map->win, 100, 100, 0x00FF0000, "Game Over");
+	printf("Game Over\n");
+	exit(0);
 }
 
-void set_enemy(t_map *map)
+void	set_enemy(t_map *map)
 {
-    int x;
-    int y;
+	int	y;
+	int	x;
 
-    y = 0;
-    while (y < map->height)
-    {
-        x = 0;
-        while (x < map->width)
-        {
-            if (map->map[y][x] == '0')
-            {
-                map->map[y][x] = 'N';
-                return;
-            }
-            x++;
-        }
-        y++;
-    }
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->map[y][x] == '0')
+			{
+				map->map[y][x] = 'N';
+				return;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
-static void execute_enemy_move(t_map *map, int old_ex, int old_ey, int new_ex, int new_ey)
+static void	execute_enemy_move(t_map *map, t_coord old_pos, t_coord new_pos)
 {
-    if (map->map[new_ey][new_ex] == 'P')
-    {
-        game_over(map);
-    }
-    map->map[old_ey][old_ex] = '0';
-    map->map[new_ey][new_ex] = 'N';
+	if (map->map[new_pos.y][new_pos.x] == 'P')
+		game_over(map);
+	map->map[old_pos.y][old_pos.x] = '0';
+	map->map[new_pos.y][new_pos.x] = 'N';
 }
 
-static bool try_move_enemy_in_direction(t_map *map, int ex, int ey, int player_x, int player_y)
+static bool	try_specific_move(t_map *map, t_coord enemy_pos, t_coord next_pos)
 {
-    if (ex < player_x && (map->map[ey][ex + 1] == '0' || map->map[ey][ex + 1] == 'P'))
-    {
-        execute_enemy_move(map, ex, ey, ex + 1, ey);
-        return true;
-    }
-    else if (ex > player_x && (map->map[ey][ex - 1] == '0' || map->map[ey][ex - 1] == 'P'))
-    {
-        execute_enemy_move(map, ex, ey, ex - 1, ey);
-        return true;
-    }
-    else if (ey < player_y && (map->map[ey + 1][ex] == '0' || map->map[ey + 1][ex] == 'P'))
-    {
-        execute_enemy_move(map, ex, ey, ex, ey + 1);
-        return true;
-    }
-    else if (ey > player_y && (map->map[ey - 1][ex] == '0' || map->map[ey - 1][ex] == 'P'))
-    {
-        execute_enemy_move(map, ex, ey, ex, ey - 1);
-        return true;
-    }
-    return false;
+	if (map->map[next_pos.y][next_pos.x] == '0'
+		|| map->map[next_pos.y][next_pos.x] == 'P')
+	{
+		execute_enemy_move(map, enemy_pos, next_pos);
+		return (true);
+	}
+	return (false);
 }
 
-static void process_single_enemy_movement(t_map *map)
+static bool	try_move_x_axis(t_map *map, t_coord enemy_pos, t_coord player_pos)
 {
-    int player_x, player_y;
-    int ex_search, ey_search;
+	t_coord	next_pos;
 
-    search_player(map, &player_x, &player_y);
-
-    ey_search = 0;
-    while (ey_search < map->height)
-    {
-        ex_search = 0;
-        while (ex_search < map->width)
-        {
-            if (map->map[ey_search][ex_search] == 'N')
-            {
-                if (try_move_enemy_in_direction(map, ex_search, ey_search, player_x, player_y))
-                {
-                    return;
-                }
-            }
-            ex_search++;
-        }
-        ey_search++;
-    }
+	next_pos.y = enemy_pos.y;
+	if (enemy_pos.x < player_pos.x)
+	{
+		next_pos.x = enemy_pos.x + 1;
+		if (try_specific_move(map, enemy_pos, next_pos))
+			return (true);
+	}
+	else if (enemy_pos.x > player_pos.x)
+	{
+		next_pos.x = enemy_pos.x - 1;
+		if (try_specific_move(map, enemy_pos, next_pos))
+			return (true);
+	}
+	return (false);
 }
 
-int enemy(t_map *map)
+static bool	try_move_y_axis(t_map *map, t_coord enemy_pos, t_coord player_pos)
 {
-    static int count = 0;
+	t_coord	next_pos;
 
-    count++;
-    if (map->goal1 && count == 1)
-    {
-        process_single_enemy_movement(map);
-        draw_map(map);
-    }
+	next_pos.x = enemy_pos.x;
+	if (enemy_pos.y < player_pos.y)
+	{
+		next_pos.y = enemy_pos.y + 1;
+		if (try_specific_move(map, enemy_pos, next_pos))
+			return (true);
+	}
+	else if (enemy_pos.y > player_pos.y)
+	{
+		next_pos.y = enemy_pos.y - 1;
+		if (try_specific_move(map, enemy_pos, next_pos))
+			return (true);
+	}
+	return (false);
+}
 
-    if (count == 100)
-        count = 0;
-    return (0);
+static bool	try_move_enemy_in_direction(t_map *map, t_coord enemy_pos,
+		t_coord player_pos)
+{
+	if (try_move_x_axis(map, enemy_pos, player_pos))
+		return (true);
+	if (try_move_y_axis(map, enemy_pos, player_pos))
+		return (true);
+	return (false);
+}
+
+static void	process_single_enemy_movement(t_map *map)
+{
+	t_coord	player_pos;
+	t_coord	enemy_search_pos;
+
+	search_player(map, &player_pos.x, &player_pos.y);
+	enemy_search_pos.y = 0;
+	while (enemy_search_pos.y < map->height)
+	{
+		enemy_search_pos.x = 0;
+		while (enemy_search_pos.x < map->width)
+		{
+			if (map->map[enemy_search_pos.y][enemy_search_pos.x] == 'N')
+			{
+				if (try_move_enemy_in_direction(map, enemy_search_pos, player_pos))
+					return;
+			}
+			enemy_search_pos.x++;
+		}
+		enemy_search_pos.y++;
+	}
+}
+
+int	enemy(t_map *map)
+{
+	static int	count = 0;
+
+	count++;
+	if (map->goal1 && count == 1)
+	{
+		process_single_enemy_movement(map);
+		draw_map(map);
+	}
+	if (count == 100)
+		count = 0;
+	return (0);
 }
