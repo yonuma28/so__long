@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include "so_long.h"
+#include "libft/libft.h"
 
 int	draw_map(t_map *map)
 {
@@ -110,7 +111,6 @@ int	draw_map(t_map *map)
 		exit(1);
 	}
 	y = 0;
-	printf("mao->height: %d, map->width: %d\n", map->height, map->width);
 	while (y < map->height)
 	{
 		x = 0;
@@ -168,7 +168,7 @@ int	draw_map(t_map *map)
 		y++;
 	}
 	char step_count[50];
-	itoa(map->count, step_count);
+	// itoa(map->count, step_count);
 	int dx = 0;
 	while (dx <= 1)
 	{

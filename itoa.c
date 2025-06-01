@@ -12,20 +12,6 @@
 
 # include "so_long.h"
 
-static int	get_num_len(int n)
-{
-	int len = 0;
-
-	if (n <= 0)
-		len = 1;
-	while (n != 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
 void itoa(int num, char *str)
 {
     int i = 0;

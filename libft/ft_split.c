@@ -83,8 +83,6 @@ char	**make_split(char **result, char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		k;
 	char	**result;
 
 	if (!s)
@@ -92,8 +90,6 @@ char	**ft_split(char const *s, char c)
 	result = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!result)
 		return (NULL);
-	i = 0;
-	k = 0;
 	return (make_split(result, s, c));
 }
 

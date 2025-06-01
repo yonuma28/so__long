@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft/libft.h"
 
 int	handle_keypress(int keycode, t_map *struct_map)
 {
@@ -26,22 +27,58 @@ int	handle_keypress(int keycode, t_map *struct_map)
 		move_w(struct_map);
 	if (keycode == XK_s)
 		move_s(struct_map);
-	if (tmp != struct_map->count)
-		printf("count: %d\n", struct_map->count);
+	// if (tmp != struct_map->count)
+	// 	printf("count: %d\n", struct_map->count);
 	draw_map(struct_map);
-	if (struct_map->count_tea == struct_map->count_teas)
-	{
-		printf("You win!\n");
+	if (struct_map->count_tea == struct_map->count_teas && struct_map->goal2)
 		exit(0);
-	}
 	return (0);
 }
 
-void	read_map(struct map *map_struct)
+static int	get_map_height(char *file_name)
 {
-	map_init(map_struct);
+	int		fd;
+	int		height;
+	char	*line;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	height = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		height ++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (height);
+}
+
+void	read_map1(struct map *map_struct, char *file_name)
+{
+	int		fd;
+	int		height;
+	char	*line;
+	char	*tmp;
+
+	// height = get_map_height(file_name);
+	fd = open(file_name, O_RDONLY);
 	map_struct->map = (char **)malloc(sizeof(char *) * 9);
-	
+	height = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		tmp = ft_strchr(line, '\n');
+		if (tmp)
+			*tmp = '\0';
+		map_struct->map[height] = ft_strdup(line);
+		free(line);
+		height++;
+	}
 	if (check_map_inclument(map_struct) == -1)
 		map_struct->is_invalid = 1;
 	// if (check_map_structure(map_struct) == -1) // マップの構造が正しいかチェック
@@ -64,17 +101,21 @@ void	set_mlx_win(struct map *map_struct)
 	}
 }
 
-int	main(void)
+int	main(int args, char **argv)
 {
 	void			*mlx;
 	void			*win;
 	struct map		map_struct;
 	struct texture	texture;
 
+	(void)args;
 	set_mlx_win(&map_struct);
 	map_init(&map_struct);
 	map_struct.texture = set_texture();
-	read_map(&map_struct);
+	if (read_map(&map_struct, argv[1]) == 0)
+	{
+		printf("Error\n");
+	}
 	if (map_struct.is_invalid == 1)
 		return (1); // error書いといて
 	draw_map(&map_struct);

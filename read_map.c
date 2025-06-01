@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft/libft.h"
 
 static int	get_map_height_and_width(t_map *map, char *filename, int *height, int *width)
 {
@@ -52,7 +53,9 @@ int	read_map(t_map *map, char *filename)
 	char	*temp;
 
 	if (!get_map_height_and_width(map, filename, &map->height, &map->width))
+	{
 		return (0);
+	}
 	fd = open(filename, O_RDONLY);
 	if (map->height == 0 || !allocate_map(map, map->height) || fd < 0)
 		return (0);
@@ -69,8 +72,8 @@ int	read_map(t_map *map, char *filename)
 		free(line);
 		height++;
 	}
-	printf("map->map[0][0]: %c\n", map->map[0][0]);
 	map->map[height] = NULL;
 	close(fd);
+	check_map_inclument(map);
 	return (1);
 }

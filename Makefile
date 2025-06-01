@@ -17,8 +17,10 @@ SRCS		=	main.c \
 				draw_map.c \
 				map_check_init.c \
 				move.c \
+				read_map.c \
 				gnl/get_next_line.c \
 				gnl/get_next_line_utils.c \
+				bonus/load_new_map.c \
 				itoa.c
 				
 SRCS_BONUS	=	bonus/main_bonus.c \
@@ -34,20 +36,24 @@ SRCS_BONUS	=	bonus/main_bonus.c \
 				itoa.c \
 				move.c
 
+LIBFT_DIR     = libft
+LIBFT_LIB     = $(LIBFT_DIR)/libft.a
+LIBFT_INC     = -I$(LIBFT_DIR)
+
 OBJS 		=	$(SRCS:.c=.o)
 OBJS_BONUS	=	$(SRCS_BONUS:.c=.o)
-CC			=	cc
+CC			=	cc -Wextra -Wall -ggdb3
 LIBX_FLAGS	=	libmlx/libmlx_Linux.a libmlx/libmlx.a -lX11 -lXext -lm -lz 
-# Rules
+
 all:		$(NAME)
 
 bonus:      $(NAME_BONUS)
 
-$(NAME):	$(OBJS)
-			$(CC) $(OBJS) $(LIBX_FLAGS) -o $(NAME)
+$(NAME):	$(OBJS) $(LIBFT_LIB)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(LIBX_FLAGS) -o $(NAME) $(LIBFT_INC)
 
-$(NAME_BONUS)    : $(OBJS_BONUS)
-			$(CC) $(OBJS_BONUS) $(LIBX_FLAGS) -o $(NAME_BONUS)
+$(NAME_BONUS)    : $(OBJS_BONUS) $(LIBFT_LIB)
+			$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_LIB) $(LIBX_FLAGS) -o $(NAME_BONUS) $(LIBFT_INC)
 
 clean:
 			$(RM) $(OBJS) $(OBJS_BONUS)

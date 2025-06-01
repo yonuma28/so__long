@@ -25,6 +25,7 @@ int	check_map_inclument(struct map *map_struct)
 	is_C = 0;
 	width = map_struct->width;
 	height = map_struct->height;
+	printf("width: %d, height: %d", width, height);
 	while (height)
 	{
 		width = map_struct->width;
@@ -42,6 +43,7 @@ int	check_map_inclument(struct map *map_struct)
 	}
 	if (is_E == 0 || is_P == 0 || is_C == 0)
 	{
+		printf("E: %d, P: %d, C: %d\n", is_E, is_P, is_C);
 		fprintf(stderr, "Error: Map is invalid\n");
 		map_struct->is_invalid = 1;
 		return (-1);
