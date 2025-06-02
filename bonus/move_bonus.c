@@ -171,13 +171,10 @@ static void apply_gravity_after_jump(t_map *map)
     t_coord current_pos;
 
     current_pos.x = map->player_x;
-    current_pos.y = map->player_y;
-    
-    // 重力を1ステップだけ適用（ゆっくりと落下）
+    current_pos.y = map->player_y;    
     process_one_gravity_step(map, &current_pos);
 }
 
-// 継続的な重力適用のための関数
 void    apply_continuous_gravity(t_map *map)
 {
     t_coord current_pos;
@@ -187,8 +184,6 @@ void    apply_continuous_gravity(t_map *map)
     
     current_pos.x = map->player_x;
     current_pos.y = map->player_y;
-    
-    // 1ステップずつ重力を適用
     process_one_gravity_step(map, &current_pos);
 }
 
@@ -203,14 +198,13 @@ static void calculate_jump_destination(t_map *map, t_coord start_pos,
     result->distance = 0;
     result->reached_exit = false;
     i = 1;
-    while (i <= 4)
+    while (i <= 3)
     {
         check_pos.x = start_pos.x;
         check_pos.y = start_pos.y - i;
         if (check_pos.y < 0)
             break ;
         tile_at_check_pos = map->map[check_pos.y][check_pos.x];
-        // 障害物判定：'1'（壁）のみを障害物として扱い、'O'（梯子）は無視
         if (tile_at_check_pos == '1')
             break ;
         result->final_pos = check_pos;
