@@ -27,8 +27,8 @@ int	handle_keypress(int keycode, t_map *struct_map)
 		move_w(struct_map);
 	if (keycode == XK_s)
 		move_s(struct_map);
-	// if (tmp != struct_map->count)
-	// 	printf("count: %d\n", struct_map->count);
+	if (tmp != struct_map->count)
+		printf("count: %d\n", struct_map->count);
 	draw_map(struct_map);
 	if (struct_map->count_tea == struct_map->count_teas && struct_map->goal2)
 		exit(0);
@@ -56,6 +56,29 @@ static int	get_map_height(char *file_name)
 	return (height);
 }
 
+static int	get_map_width(char *file_name)
+{
+	int		fd;
+	int		width;
+	char	*line;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	line = get_next_line(fd);
+	if (!line)
+	{
+		close(fd);
+		return (0);
+	}
+	width = ft_strlen(line);
+	if (line[width - 1] == '\n')
+		width--;
+	free(line);
+	close(fd);
+	return (width);
+}
+
 void	read_map1(struct map *map_struct, char *file_name)
 {
 	int		fd;
@@ -63,7 +86,6 @@ void	read_map1(struct map *map_struct, char *file_name)
 	char	*line;
 	char	*tmp;
 
-	// height = get_map_height(file_name);
 	fd = open(file_name, O_RDONLY);
 	map_struct->map = (char **)malloc(sizeof(char *) * 9);
 	height = 0;
@@ -85,15 +107,32 @@ void	read_map1(struct map *map_struct, char *file_name)
 	// 	map_struct.is_invalid = 1;
 }
 
-void	set_mlx_win(struct map *map_struct)
+void	set_mlx_win(struct map *map_struct, char *file_name)
 {
+	int	map_width;
+	int	map_height;
+	int	window_width;
+	int	window_height;
+
+	map_width = get_map_width(file_name);
+	map_height = get_map_height(file_name);
+	window_width = map_width * 64;
+	window_height = map_height * 64;
+	if (window_width < 320)
+		window_width = 320;
+	if (window_height < 240)
+		window_height = 240;
+	if (window_width > 1920)
+		window_width = 1920;
+	if (window_height > 1080)
+		window_height = 1080;
 	map_struct->mlx = mlx_init();
 	if (map_struct->mlx == NULL)
 	{
 		fprintf(stderr, "Error\n");
 		exit(1);
 	}
-	map_struct->win = mlx_new_window(map_struct->mlx, 1800, 600, "so_long");
+	map_struct->win = mlx_new_window(map_struct->mlx, window_width, window_height, "so_long");
 	if (map_struct->win == NULL)
 	{
 		fprintf(stderr, "Error\n");
@@ -103,21 +142,18 @@ void	set_mlx_win(struct map *map_struct)
 
 int	main(int args, char **argv)
 {
-	void			*mlx;
-	void			*win;
 	struct map		map_struct;
-	struct texture	texture;
 
 	(void)args;
-	set_mlx_win(&map_struct);
 	map_init(&map_struct);
+	set_mlx_win(&map_struct, argv[1]);
 	map_struct.texture = set_texture();
 	if (read_map(&map_struct, argv[1]) == 0)
 	{
 		printf("Error\n");
 	}
 	if (map_struct.is_invalid == 1)
-		return (1); // error書いといて
+		return (1);
 	draw_map(&map_struct);
 	mlx_key_hook(map_struct.win, handle_keypress, &map_struct);
 	mlx_loop(map_struct.mlx);
