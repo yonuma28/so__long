@@ -52,7 +52,6 @@ void	move_bonus(int keycode, t_map *struct_map)
 		printf("count: %d\n", struct_map->count); // printf
 }
 
-
 int	handle_keypress(int keycode, t_map *struct_map)
 {
 	if (!struct_map->goal2)

@@ -54,14 +54,35 @@ typedef struct map
 	int				is_invalid;
 	int				count;
 	int				count_tea;
+	int				count_teas;
 	int				player_x;
 	int				player_y;
 	bool			is_jumping;
+	bool			is_falling;
 	bool			goal1;
 	bool			goal2;
 	bool			goal3;
 	struct texture	texture;
 }	t_map;
+
+typedef struct s_images {
+    void    *window;
+    void    *wall;
+    void    *pc1;
+    void    *pc2;
+    void    *exit_img;
+    void    *person1;
+    void    *person2;
+    void    *collectible;
+    void    *empty_space;
+    void    *enemy_img;
+    void    *object_img;
+}   t_images;
+
+typedef struct s_render_flags {
+    bool    *next_pc1_tile_flag;
+    bool    *player_anim_state;
+}   t_render_flags;
 
 typedef struct s_coord
 {
@@ -74,6 +95,12 @@ typedef struct s_player_state
 	t_coord	pos;
 	int		jump_remaining;
 }	t_player_state;
+
+typedef struct s_jump_result {
+    t_coord final_pos;
+    int     distance;
+    bool    reached_exit;
+}   t_jump_result;
 
 // texture
 struct texture set_new_texture(void);

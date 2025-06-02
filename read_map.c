@@ -13,7 +13,7 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
-static int	get_map_height_and_width(t_map *map, char *filename, int *height, int *width)
+static int	get_map_height_and_width(char *filename, int *height, int *width)
 {
 	int		fd;
 	char	*line;
@@ -40,7 +40,7 @@ static int	get_map_height_and_width(t_map *map, char *filename, int *height, int
 
 static char	**allocate_map(t_map *map, int height)
 {
-	map->map_height = height;
+	map->height = height;
 	map->map = malloc(sizeof(char *) * (height + 1));
 	return (map->map);
 }
@@ -52,7 +52,7 @@ int	read_map(t_map *map, char *filename)
 	char	*line;
 	char	*temp;
 
-	if (!get_map_height_and_width(map, filename, &map->height, &map->width))
+	if (!get_map_height_and_width(filename, &map->height, &map->width))
 	{
 		return (0);
 	}
