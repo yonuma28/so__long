@@ -13,8 +13,8 @@
 NAME		=	minilibx_test
 NAME_BONUS	=	minilibx_test_bonus
 SRCS		=	main.c \
-				texture.c \
-				draw_map.c \
+				code_map/texture.c \
+				code_map/draw_map.c \
 				map_check_init.c \
 				move.c \
 				read_map.c \
@@ -25,8 +25,8 @@ SRCS		=	main.c \
 				
 SRCS_BONUS	=	bonus/main_bonus.c \
 				bonus/move_bonus.c \
-				texture.c \
-				draw_map.c \
+				code_map/texture.c \
+				code_map/draw_map.c \
 				read_map.c \
 				bonus/load_new_map.c \
 				bonus/enemy.c \
