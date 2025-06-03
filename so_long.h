@@ -144,4 +144,9 @@ void    load_new_map(struct map *map_struct);
 // gnl
 char	*get_next_line(int fd);
 
+// check
+int		check_map_invalid(t_map *map);
+int		check_map_char(t_map *map);
+int		check_map_invald(t_map *map);
+
 #endif
