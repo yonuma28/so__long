@@ -31,7 +31,6 @@ void find_player(t_map *map)
             }
             x++;
         }
-        printf("target: %d, %d, %d=%d\n", x, y, map->count_tea, map->count_teas);
         y++;
     }
 }
@@ -46,18 +45,22 @@ void move_a(t_map *map)
     if (x > 0)
     {
         target_tile = map->map[y][x - 1];
-        if (target_tile == '0' || target_tile == 'C' ||
-            (target_tile == 'E' && map->goal1 == true))
+        if (target_tile == '0' || target_tile == 'C')
         {
             if (target_tile == 'C')
                 map->count_tea++;
-            if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
             map->map[y][x - 1] = 'P';
             map->map[y][x] = '0';
             map->count++;
             map->player_x--;
         }
+		else if (target_tile == 'E')
+		{
+			if (map->count_tea == map->count_teas && target_tile == 'E')
+				map->goal1 = true;
+            if (target_tile == 'E' && map->goal1 == true)
+                map->goal2 = 1;
+		}
     }
 }
 
@@ -71,18 +74,22 @@ void move_d(t_map *map)
     if (x < map->width - 1)
     {
         target_tile = map->map[y][x + 1];
-        if (target_tile == '0' || target_tile == 'C' ||
-            (target_tile == 'E' && map->goal1 == true))
+        if (target_tile == '0' || target_tile == 'C')
         {
             if (target_tile == 'C')
                 map->count_tea++;
-            if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
             map->map[y][x + 1] = 'P';
             map->map[y][x] = '0';
             map->count++;
             map->player_x++;
         }
+		else if (target_tile == 'E')
+		{
+			if (map->count_tea == map->count_teas && target_tile == 'E')
+					map->goal1 = true;
+			if (target_tile == 'E' && map->goal1 == true)
+				map->goal2 = 1;
+		}
     }
 }
 
@@ -96,18 +103,22 @@ void move_w(t_map *map)
     if (y > 0)
     {
         target_tile = map->map[y - 1][x];
-        if (target_tile == '0' || target_tile == 'C' ||
-            (target_tile == 'E' && map->goal1 == true))
+        if (target_tile == '0' || target_tile == 'C')
         {
             if (target_tile == 'C')
                 map->count_tea++;
-            if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
             map->map[y - 1][x] = 'P';
             map->map[y][x] = '0';
             map->count++;
             map->player_y--;
         }
+		else if (target_tile == 'E')
+		{
+			if (map->count_tea == map->count_teas && target_tile == 'E')
+					map->goal1 = true;
+			if (target_tile == 'E' && map->goal1 == true)
+				map->goal2 = 1;
+		}
     }
 }
 
@@ -121,17 +132,21 @@ void move_s(t_map *map)
     if (y < map->height - 1)
     {
         target_tile = map->map[y + 1][x];
-        if (target_tile == '0' || target_tile == 'C' ||
-            (target_tile == 'E' && map->goal1 == true))
+        if (target_tile == '0' || target_tile == 'C')
         {
             if (target_tile == 'C')
                 map->count_tea++;
-            if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
             map->map[y + 1][x] = 'P';
             map->map[y][x] = '0';
             map->count++;
             map->player_y++;
         }
+		else if (target_tile == 'E')
+		{
+			if (map->count_tea == map->count_teas && target_tile == 'E')
+				map->goal1 = true;
+            if (target_tile == 'E' && map->goal1 == true)
+                map->goal2 = 1;
+		}
     }
 }

@@ -76,65 +76,6 @@ void    move_d_bonus(t_map *map)
     handle_horizontal_move(map, p_pos, 1);
 }
 
-static void perform_jump_one_step(t_map *map, t_player_state *p_state)
-{
-    t_coord next_pos;
-
-    next_pos.x = p_state->pos.x;
-    next_pos.y = p_state->pos.y - 1;
-
-    if (next_pos.y < 0 || map->map[next_pos.y][next_pos.x] == '1')
-    {
-        p_state->jump_remaining = 0;
-        return;
-    }
-
-    if (map->map[next_pos.y][next_pos.x] == 'E')
-        process_goal_achievement(map);
-
-    collect_item_at_pos(map, next_pos);
-    update_player_position_on_map(map, p_state->pos, next_pos);
-    p_state->pos = next_pos;
-    p_state->jump_remaining--;
-}
-
-static void perform_jump_over_obstacle(t_map *map, t_player_state *p_state)
-{
-    t_coord landing_pos;
-    t_coord obstacle_pos;
-
-    obstacle_pos.x = p_state->pos.x;
-    obstacle_pos.y = p_state->pos.y - 1;
-    landing_pos.x = p_state->pos.x;
-    landing_pos.y = p_state->pos.y - 2;
-
-    if (landing_pos.y < 0 || map->map[landing_pos.y][landing_pos.x] == '1' ||
-        map->map[obstacle_pos.y][obstacle_pos.x] != 'O')
-    {
-        p_state->jump_remaining = 0;
-        return;
-    }
-
-    if (map->map[landing_pos.y][landing_pos.x] == 'E')
-    {
-        map->goal3 = true;
-        process_goal_achievement(map);
-    }
-
-    if (map->map[landing_pos.y][landing_pos.x] == 'C')
-    {
-        map->count_tea++;
-        map->map[landing_pos.y][landing_pos.x] = '0';
-    }
-
-    update_player_position_on_map(map, p_state->pos, landing_pos);
-
-    p_state->pos = landing_pos;
-    p_state->jump_remaining -= 2;
-    if (p_state->jump_remaining < 0)
-        p_state->jump_remaining = 0;
-}
-
 static bool process_one_gravity_step(t_map *map, t_coord *current_pos)
 {
     t_coord next_pos_down;
