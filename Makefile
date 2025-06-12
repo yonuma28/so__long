@@ -15,7 +15,9 @@ NAME_BONUS	=	minilibx_test_bonus
 SRCS		=	main.c \
 				code_map/texture.c \
 				code_map/draw_map.c \
-				map_check_init.c \
+				check/map_check_init.c \
+				check/check_map_wall.c \
+				check/check_map_char.c \
 				move.c \
 				read_map.c \
 				gnl/get_next_line.c \

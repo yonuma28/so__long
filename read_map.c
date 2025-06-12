@@ -75,12 +75,12 @@ int	read_map(t_map *map, char *filename)
 	map->map[height] = NULL;
 	close(fd);
 	// 文字が揃っているかを見る
-	check_map_inclument(map);
-	// 文字が多くないか見る
-	check_map_char(map);
-	// マップが１で囲まれているかをみる
-	check_map_wall(map);
-	// マップが有効か見る
-	check_map_invalid(map);
+	// check_map_inclument(map);
+	// // 文字が多くないか見る
+	// check_map_char(map);
+	// // マップが１で囲まれているかをみる
+	// check_map_wall(map);
+	// // マップが有効か見る
+	// check_map_invalid(map);
 	return (0);
 }
