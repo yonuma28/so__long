@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:57:26 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/14 13:06:50 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/14 13:27:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void process_goal_achievement(t_map *map)
 {
     printf("GOAL!!\nresult: %d\n", map->count);
-    cleanup_and_exit(map_struct)
+    cleanup_and_exit(map);
 }
 
 static void collect_item_at_pos(t_map *map, t_coord pos)

@@ -56,10 +56,14 @@ void move_a(t_map *map)
         }
 		else if (target_tile == 'E')
 		{
-			if (map->count_tea == map->count_teas && target_tile == 'E')
-				map->goal1 = true;
-            else if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
+			if (map->count_tea == map->count_teas)
+			{
+				map->count++;
+				printf("count: %d\n", map->count);
+				printf("GOAL!!\n");
+				cleanup_and_exit(map);
+			}
+			map->goal2 = true;
 		}
     }
 }
@@ -85,10 +89,14 @@ void move_d(t_map *map)
         }
 		else if (target_tile == 'E')
 		{
-			if (map->count_tea == map->count_teas && target_tile == 'E')
-					map->goal1 = true;
-			else if (target_tile == 'E' && map->goal1 == true)
-				map->goal2 = 1;
+			if (map->count_tea == map->count_teas)
+			{
+				map->count++;
+				printf("count: %d\n", map->count);
+				printf("GOAL!!\n");
+				cleanup_and_exit(map);
+			}
+			map->goal2 = true;
 		}
     }
 }
@@ -114,10 +122,14 @@ void move_w(t_map *map)
         }
 		else if (target_tile == 'E')
 		{
-			if (map->count_tea == map->count_teas && target_tile == 'E')
-					map->goal1 = true;
-			else if (target_tile == 'E' && map->goal1 == true)
-				map->goal2 = 1;
+			if (map->count_tea == map->count_teas)
+			{
+				map->count++;
+				printf("count: %d\n", map->count);
+				printf("GOAL!!\n");
+				cleanup_and_exit(map);
+			}
+			map->goal2 = true;
 		}
     }
 }
@@ -143,10 +155,14 @@ void move_s(t_map *map)
         }
 		else if (target_tile == 'E')
 		{
-			if (map->count_tea == map->count_teas && target_tile == 'E')
-				map->goal1 = true;
-            else if (target_tile == 'E' && map->goal1 == true)
-                map->goal2 = 1;
+			if (map->count_tea == map->count_teas)
+			{
+				map->count++;
+				printf("count: %d\n", map->count);
+				printf("GOAL!!\n");
+				cleanup_and_exit(map);
+			}
+			map->goal2 = true;
 		}
     }
 }
