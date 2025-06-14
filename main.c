@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/25 16:52:36 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/14 11:10:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	if (keycode == XK_s)
 		move_s(struct_map);
 	if (tmp != struct_map->count)
-		printf("count: %d\n", struct_map->count);
+	{
+		printf("count: %d, goal1: %d, %d\n", struct_map->count, struct_map->goal1, struct_map->goal2);
+		printf("tea: %d, teas:%d\n", struct_map->count_tea, struct_map->count_teas);
+	}
 	draw_map(struct_map);
 	if (struct_map->count_tea == struct_map->count_teas && struct_map->goal2)
 		exit(0);
@@ -138,12 +141,13 @@ int	main(int args, char **argv)
 
 	(void)args;
 	map_init(&map_struct);
-	set_mlx_win(&map_struct, argv[1]);
-	map_struct.texture = set_texture();
-	if (read_map(&map_struct, argv[1]) == 0)
+	if (read_map(&map_struct, argv[1]) != 0)
 	{
 		printf("Error\n");
+		return (1);
 	}
+	set_mlx_win(&map_struct, argv[1]);
+	map_struct.texture = set_texture();
 	if (map_struct.is_invalid == 1)
 		return (1);
 	draw_map(&map_struct);

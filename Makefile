@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 14:19:47 by yonuma            #+#    #+#              #
-#    Updated: 2025/01/31 15:39:05 by yonuma           ###   ########.fr        #
+#    Updated: 2025/06/14 10:05:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS		=	main.c \
 				code_map/draw_map.c \
 				check/map_check_init.c \
 				check/check_map_wall.c \
+				check/check_map_inclument.c \
 				check/check_map_char.c \
+				check/check_map_invalid.c \
 				move.c \
 				read_map.c \
 				gnl/get_next_line.c \
