@@ -15,6 +15,7 @@ NAME_BONUS    =   so_long_bonus
 SRCS          =   main.c \
                   code_map/texture.c \
                   code_map/draw_map.c \
+				  code_map/draw_map2.c \
                   check/map_check_init.c \
                   check/check_map_wall.c \
                   check/check_map_inclument.c \
@@ -33,6 +34,7 @@ SRCS_BONUS    =   bonus/main_bonus.c \
                   bonus/move_bonus.c \
                   code_map/texture.c \
                   code_map/draw_map.c \
+				  code_map/draw_map2.c \
                   read_map.c \
 				  free/free_map.c \
                   bonus/load_new_map.c \

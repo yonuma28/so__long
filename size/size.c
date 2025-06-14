@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
 #include "../libft/libft.h"
+#include "../so_long.h"
 
 int	get_map_height(char *file_name)
 {
@@ -26,7 +26,7 @@ int	get_map_height(char *file_name)
 	line = get_next_line(fd);
 	while (line)
 	{
-		height ++;
+		height++;
 		free(line);
 		line = get_next_line(fd);
 	}

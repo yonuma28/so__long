@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
 #include "../libft/libft.h"
+#include "../so_long.h"
 
 void	search_player(t_map *map, int *x, int *y)
 {
@@ -56,8 +56,8 @@ static char	**create_map_copy(t_map *map)
 
 static void	flood_fill(char **map_copy, int height, int width, int y, int x)
 {
-	if (y < 0 || y >= height || x < 0 || x >= width
-		|| map_copy[y][x] == '1' || map_copy[y][x] == 'F')
+	if (y < 0 || y >= height || x < 0 || x >= width || map_copy[y][x] == '1'
+		|| map_copy[y][x] == 'F')
 		return ;
 	map_copy[y][x] = 'F';
 	flood_fill(map_copy, height, width, y + 1, x);

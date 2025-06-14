@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/14 16:54:53 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/14 20:22:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	move(int keycode, t_map *struct_map)
 	if (keycode == XK_Escape)
 		cleanup_and_exit(struct_map);
 	if (keycode == XK_a)
-		move_a(struct_map);
+		attempt_move(struct_map, -1, 0);
 	if (keycode == XK_d)
-		move_d(struct_map);
+		attempt_move(struct_map, 1, 0);
 	if (keycode == XK_w)
-		move_w(struct_map);
+		attempt_move(struct_map, 0, 1);
 	if (keycode == XK_s)
-		move_s(struct_map);
+		attempt_move(struct_map, 0, -1);
 	if (prev_count != struct_map->count)
 		printf("count: %d\n", struct_map->count); // printf
 }

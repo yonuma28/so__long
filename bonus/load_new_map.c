@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_new_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:18:38 by yonuma            #+#    #+#             */
-/*   Updated: 2025/01/16 17:25:16 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/14 20:09:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	load_new_map(struct map *map_struct)
 {
 	map_struct->map = (char **)malloc(sizeof(char *) * 10);
-	map_struct->map[0] = ft_strdup("111111111111111111111111111"); // 仮置きのstrdup
+	map_struct->map[0] = ft_strdup("111111111111111111111111111");
 	map_struct->map[1] = ft_strdup("100000000000000000000000001");
 	map_struct->map[2] = ft_strdup("10000C000000000000000000001");
 	map_struct->map[3] = ft_strdup("100000000000000000000000001");
@@ -28,6 +28,4 @@ void	load_new_map(struct map *map_struct)
 	map_struct->map[9] = ft_strdup("111111111111111111111111111");
 	map_struct->height = 10;
 	map_struct->width = 27;
-	// if (check_map_structure(map_struct) == -1) // マップの構造が正しいかチェック
-	// 	map_struct.is_invalid = 1;
 }

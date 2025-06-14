@@ -29,11 +29,11 @@ typedef struct texture
 	void			*img_0;
 	void			*img_window;
 	void			*img_wall;
-	void			*img_PC1;
-	void			*img_PC2;
-	void			*img_E;
-	void			*img_Person1;
-	void			*img_Person2;
+	void			*img_pc1;
+	void			*img_pc2;
+	void			*img_e;
+	void			*img_person1;
+	void			*img_person2;
 	void			*img_tea;
 	void			*enemy;
 	void			*character;
@@ -159,5 +159,15 @@ int					check_map_invald(t_map *map);
 // free
 void				free_map_data(t_map *map);
 int					cleanup_and_exit(t_map *map);
+void				draw_single_tile(t_map *map, t_images *imgs, t_coord pos,
+					t_render_flags *flags);
+void				load_game_images(t_map *map, t_images *imgs);
+void				destroy_game_images(void *mlx_ptr, t_images *imgs);
+void				*load_img_checked(void *mlx_ptr, char *path, int *width, int *height);
+void				draw_wall_variant_tile(t_map *map, t_images *imgs, t_coord pos,
+					bool *next_pc1_flag);
+
+
+
 
 #endif
