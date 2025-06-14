@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "libft/libft.h"
+#include "so_long.h"
 
 static int	get_map_height_and_width(char *filename, int *height, int *width)
 {
@@ -67,7 +67,7 @@ static void	count_items(t_map *map)
 		while (j < map->width)
 		{
 			if (map->map[i][j] == 'C')
-				count ++;
+				count++;
 			j++;
 		}
 		i++;
@@ -107,11 +107,11 @@ int	read_map(t_map *map, char *filename)
 	count_items(map);
 	status |= check_map_inclument(map);
 	printf("status: %d\n", status);
-	status |=check_map_char(map);
+	status |= check_map_char(map);
 	printf("status: %d\n", status);
-	status |=check_map_wall(map);
+	status |= check_map_wall(map);
 	printf("status: %d\n", status);
-	status |=check_map_invalid(map);
+	status |= check_map_invalid(map);
 	printf("status: %d\n", status);
 	if (status == -1)
 		return (status);

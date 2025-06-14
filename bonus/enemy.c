@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../so_long.h"
+#include "../so_long.h"
 
 void	game_over(t_map *map)
 {
@@ -33,7 +33,7 @@ void	set_enemy(t_map *map)
 			if (map->map[y][x] == '0')
 			{
 				map->map[y][x] = 'N';
-				return;
+				return ;
 			}
 			x++;
 		}
@@ -124,8 +124,9 @@ static void	process_single_enemy_movement(t_map *map)
 		{
 			if (map->map[enemy_search_pos.y][enemy_search_pos.x] == 'N')
 			{
-				if (try_move_enemy_in_direction(map, enemy_search_pos, player_pos))
-					return;
+				if (try_move_enemy_in_direction(map, enemy_search_pos,
+						player_pos))
+					return ;
 			}
 			enemy_search_pos.x++;
 		}

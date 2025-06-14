@@ -74,7 +74,6 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	return (0);
 }
 
-
 void	set_mlx_win(struct map *map_struct, char *file_name)
 {
 	int	map_width;
@@ -92,7 +91,8 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 		fprintf(stderr, "Error\n");
 		exit(1);
 	}
-	map_struct->win = mlx_new_window(map_struct->mlx, window_width, window_height, "so_long");
+	map_struct->win = mlx_new_window(map_struct->mlx, window_width,
+			window_height, "so_long");
 	if (map_struct->win == NULL)
 	{
 		fprintf(stderr, "Error\n");
@@ -142,7 +142,7 @@ int	loop_hook(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	struct map		map_struct;
+	struct map	map_struct;
 
 	(void)argc;
 	map_init(&map_struct);

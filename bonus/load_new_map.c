@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../so_long.h"
-# include "../libft/libft.h"
+#include "../libft/libft.h"
+#include "../so_long.h"
 
 void	load_new_map(struct map *map_struct)
 {

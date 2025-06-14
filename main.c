@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "libft/libft.h"
+#include "so_long.h"
 
 int	handle_keypress(int keycode, t_map *struct_map)
 {
@@ -29,8 +29,10 @@ int	handle_keypress(int keycode, t_map *struct_map)
 		move_s(struct_map);
 	if (tmp != struct_map->count)
 	{
-		printf("count: %d, goal1: %d, %d\n", struct_map->count, struct_map->goal1, struct_map->goal2);
-		printf("tea: %d, teas:%d\n", struct_map->count_tea, struct_map->count_teas);
+		printf("count: %d, goal1: %d, %d\n", struct_map->count,
+			struct_map->goal1, struct_map->goal2);
+		printf("tea: %d, teas:%d\n", struct_map->count_tea,
+			struct_map->count_teas);
 	}
 	draw_map(struct_map);
 	return (0);
@@ -79,7 +81,8 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 		fprintf(stderr, "Error\n");
 		exit(1);
 	}
-	map_struct->win = mlx_new_window(map_struct->mlx, window_width, window_height, "so_long");
+	map_struct->win = mlx_new_window(map_struct->mlx, window_width,
+			window_height, "so_long");
 	if (map_struct->win == NULL)
 	{
 		fprintf(stderr, "Error\n");
@@ -89,7 +92,7 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 
 int	main(int argc, char **argv)
 {
-	struct map		map_struct;
+	struct map	map_struct;
 
 	(void)argc;
 	map_init(&map_struct);

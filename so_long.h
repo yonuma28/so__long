@@ -13,36 +13,34 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "libmlx/mlx.h"
+# include "libmlx/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <time.h>
+# include <unistd.h>
 
 typedef struct texture
 {
-	void	*img_0;
-	void	*img_window;
-	void	*img_wall;
-	void	*img_PC1;
-	void	*img_PC2;
-	void	*img_E;
-	void	*img_Person1;
-	void	*img_Person2;
-	void	*img_tea;
-	void	*enemy;
-	void	*character;
-	void	*object;
-	int		img_width;
-	int		img_height;
-}	texture;
+	void			*img_0;
+	void			*img_window;
+	void			*img_wall;
+	void			*img_PC1;
+	void			*img_PC2;
+	void			*img_E;
+	void			*img_Person1;
+	void			*img_Person2;
+	void			*img_tea;
+	void			*enemy;
+	void			*character;
+	void			*object;
+	int				img_width;
+	int				img_height;
+}					texture;
 
 typedef struct map
 {
@@ -63,100 +61,103 @@ typedef struct map
 	bool			goal2;
 	bool			goal3;
 	struct texture	texture;
-}	t_map;
+}					t_map;
 
-typedef struct s_images {
-    void    *window;
-    void    *wall;
-    void    *pc1;
-    void    *pc2;
-    void    *exit_img;
-    void    *person1;
-    void    *person2;
-    void    *collectible;
-    void    *empty_space;
-    void    *enemy_img;
-    void    *object_img;
-}   t_images;
+typedef struct s_images
+{
+	void			*window;
+	void			*wall;
+	void			*pc1;
+	void			*pc2;
+	void			*exit_img;
+	void			*person1;
+	void			*person2;
+	void			*collectible;
+	void			*empty_space;
+	void			*enemy_img;
+	void			*object_img;
+}					t_images;
 
-typedef struct s_render_flags {
-    bool    *next_pc1_tile_flag;
-    bool    *player_anim_state;
-}   t_render_flags;
+typedef struct s_render_flags
+{
+	bool			*next_pc1_tile_flag;
+	bool			*player_anim_state;
+}					t_render_flags;
 
 typedef struct s_coord
 {
-	int	x;
-	int	y;
-}	t_coord;
+	int				x;
+	int				y;
+}					t_coord;
 
 typedef struct s_player_state
 {
-	t_coord	pos;
-	int		jump_remaining;
-}	t_player_state;
+	t_coord			pos;
+	int				jump_remaining;
+}					t_player_state;
 
-typedef struct s_jump_result {
-    t_coord final_pos;
-    int     distance;
-    bool    reached_exit;
-}   t_jump_result;
+typedef struct s_jump_result
+{
+	t_coord			final_pos;
+	int				distance;
+	bool			reached_exit;
+}					t_jump_result;
 
 // texture
-struct texture set_new_texture(void);
-struct texture set_texture(void);
-struct texture next_stage_texture(void);
+struct texture		set_new_texture(void);
+struct texture		set_texture(void);
+struct texture		next_stage_texture(void);
 
 // move
-void    move_a(struct map *map);
-void    move_d(struct map *map);
-void    move_w(struct map *map);
-void    move_s(struct map *map);
+void				move_a(struct map *map);
+void				move_d(struct map *map);
+void				move_w(struct map *map);
+void				move_s(struct map *map);
 
 // move_bonus
-void    move_a_bonus(struct map *map);
-void    move_d_bonus(struct map *map);
-void    move_w_bonus(struct map *map);
-void    move_s_bonus(struct map *map);
-void    set_obstacle(struct map *map);
+void				move_a_bonus(struct map *map);
+void				move_d_bonus(struct map *map);
+void				move_w_bonus(struct map *map);
+void				move_s_bonus(struct map *map);
+void				set_obstacle(struct map *map);
 
 // map_check_init
-int     check_map_inclument(struct map *map_struct);
-void    map_init(struct map *map_struct);
+int					check_map_inclument(struct map *map_struct);
+void				map_init(struct map *map_struct);
 
 // draw_map
-int     draw_map(struct map *map);
+int					draw_map(struct map *map);
 
-//utils
-void    search_player(struct map *map, int *x, int *y);
+// utils
+void				search_player(struct map *map, int *x, int *y);
 
 // read_map
-int     read_map(struct map *map, char *filename);
+int					read_map(struct map *map, char *filename);
 
-//size
-int		get_map_height(char *file_name);
-int		get_map_width(char *file_name);
+// size
+int					get_map_height(char *file_name);
+int					get_map_width(char *file_name);
 
 // enemy
-void    set_enemy(struct map *map);
-int     enemy(struct map *map);
-void    game_over(struct map *map);
+void				set_enemy(struct map *map);
+int					enemy(struct map *map);
+void				game_over(struct map *map);
 
 // load_new_map
-void    load_new_map(struct map *map_struct);
+void				load_new_map(struct map *map_struct);
 
 // gnl
-char	*get_next_line(int fd);
+char				*get_next_line(int fd);
 
 // check
-int		check_map_invalid(t_map *map);
-int		check_map_char(t_map *map);
-int		check_map_inclument(t_map *map);
-int		check_map_wall(t_map *map);
-int		check_map_invald(t_map *map);
+int					check_map_invalid(t_map *map);
+int					check_map_char(t_map *map);
+int					check_map_inclument(t_map *map);
+int					check_map_wall(t_map *map);
+int					check_map_invald(t_map *map);
 
-//free
-void    free_map_data(t_map *map);
-int     cleanup_and_exit(t_map *map);
+// free
+void				free_map_data(t_map *map);
+int					cleanup_and_exit(t_map *map);
 
 #endif
