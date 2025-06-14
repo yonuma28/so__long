@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 14:19:47 by yonuma            #+#    #+#              #
-#    Updated: 2025/06/14 11:56:25 by marvin           ###   ########.fr        #
+#    Updated: 2025/06/14 17:05:57 by yonuma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,12 @@ $(NAME_BONUS)     : $(OBJS_BONUS) $(LIBFT_LIB)
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)
 
+norm:
+	@norminette $(SRCS) $(SRCS_BONUS) so_long.h
+
 fclean:       clean
 	$(RM) $(NAME) $(NAME_BONUS)
 
 re:           fclean all
 
-.PHONY:       all clean fclean re bonus
+.PHONY:       all clean fclean re bonus norm
