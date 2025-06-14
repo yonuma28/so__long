@@ -155,4 +155,8 @@ int		check_map_inclument(t_map *map);
 int		check_map_wall(t_map *map);
 int		check_map_invald(t_map *map);
 
+//free
+void    free_map_data(t_map *map);
+int     cleanup_and_exit(t_map *map);
+
 #endif

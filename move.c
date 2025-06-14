@@ -58,7 +58,7 @@ void move_a(t_map *map)
 		{
 			if (map->count_tea == map->count_teas && target_tile == 'E')
 				map->goal1 = true;
-            if (target_tile == 'E' && map->goal1 == true)
+            else if (target_tile == 'E' && map->goal1 == true)
                 map->goal2 = 1;
 		}
     }
@@ -87,7 +87,7 @@ void move_d(t_map *map)
 		{
 			if (map->count_tea == map->count_teas && target_tile == 'E')
 					map->goal1 = true;
-			if (target_tile == 'E' && map->goal1 == true)
+			else if (target_tile == 'E' && map->goal1 == true)
 				map->goal2 = 1;
 		}
     }
@@ -116,7 +116,7 @@ void move_w(t_map *map)
 		{
 			if (map->count_tea == map->count_teas && target_tile == 'E')
 					map->goal1 = true;
-			if (target_tile == 'E' && map->goal1 == true)
+			else if (target_tile == 'E' && map->goal1 == true)
 				map->goal2 = 1;
 		}
     }
@@ -145,7 +145,7 @@ void move_s(t_map *map)
 		{
 			if (map->count_tea == map->count_teas && target_tile == 'E')
 				map->goal1 = true;
-            if (target_tile == 'E' && map->goal1 == true)
+            else if (target_tile == 'E' && map->goal1 == true)
                 map->goal2 = 1;
 		}
     }

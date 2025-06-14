@@ -18,7 +18,7 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	static int	tmp = 0;
 
 	if (keycode == XK_Escape)
-		exit(0);
+		cleanup_and_exit(struct_map);
 	if (keycode == XK_a)
 		move_a(struct_map);
 	if (keycode == XK_d)
@@ -33,8 +33,6 @@ int	handle_keypress(int keycode, t_map *struct_map)
 		printf("tea: %d, teas:%d\n", struct_map->count_tea, struct_map->count_teas);
 	}
 	draw_map(struct_map);
-	if (struct_map->count_tea == struct_map->count_teas && struct_map->goal2)
-		exit(0);
 	return (0);
 }
 

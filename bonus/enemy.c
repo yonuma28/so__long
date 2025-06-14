@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:49:04 by yonuma            #+#    #+#             */
-/*   Updated: 2025/01/18 12:50:18 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/14 13:05:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	game_over(t_map *map)
 {
 	mlx_string_put(map->mlx, map->win, 100, 100, 0x00FF0000, "Game Over");
 	printf("Game Over\n");
-	exit(0);
+	cleanup_and_exit(map);
 }
 
 void	set_enemy(t_map *map)

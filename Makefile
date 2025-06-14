@@ -20,6 +20,7 @@ SRCS          =   main.c \
                   check/check_map_inclument.c \
                   check/check_map_char.c \
                   check/check_map_invalid.c \
+				  free/free_map.c \
 				  size/size.c \
                   move.c \
                   read_map.c \
@@ -33,6 +34,7 @@ SRCS_BONUS    =   bonus/main_bonus.c \
                   code_map/texture.c \
                   code_map/draw_map.c \
                   read_map.c \
+				  free/free_map.c \
                   bonus/load_new_map.c \
                   bonus/enemy.c \
                   check/map_check_init.c \

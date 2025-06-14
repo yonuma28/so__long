@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:57:26 by yonuma            #+#    #+#             */
-/*   Updated: 2025/01/25 16:41:15 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/14 13:06:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void process_goal_achievement(t_map *map)
 {
     printf("GOAL!!\nresult: %d\n", map->count);
-    exit(0);
+    cleanup_and_exit(map_struct)
 }
 
 static void collect_item_at_pos(t_map *map, t_coord pos)

@@ -18,7 +18,7 @@ void	move(int keycode, t_map *struct_map)
 
 	prev_count = struct_map->count;
 	if (keycode == XK_Escape)
-		exit(0);
+		cleanup_and_exit(map_struct);
 	if (keycode == XK_a)
 		move_a(struct_map);
 	if (keycode == XK_d)
@@ -37,7 +37,7 @@ void	move_bonus(int keycode, t_map *struct_map)
 
 	prev_count = struct_map->count;
 	if (keycode == XK_Escape)
-		exit(0);
+		cleanup_and_exit(map_struct)
 	if (keycode == XK_a)
 		move_a_bonus(struct_map);
 	if (keycode == XK_d)
@@ -119,7 +119,7 @@ int	apply_gravity(t_map *map)
 		{
 			map->goal3 = true;
 			printf("GOAL!!\nresult: %d\n", map->count);
-			exit(0);
+			cleanup_and_exit(map_struct)
 		}
 		map->is_falling = true;
 		if (map->map[y][x] == 'P' && map->map[y + 1][x] == '0')
