@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/14 11:10:57 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/14 11:59:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,6 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	return (0);
 }
 
-static int	get_map_height(char *file_name)
-{
-	int		fd;
-	int		height;
-	char	*line;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	height = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		height ++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (height);
-}
-
-static int	get_map_width(char *file_name)
-{
-	int		fd;
-	int		width;
-	char	*line;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	if (!line)
-	{
-		close(fd);
-		return (0);
-	}
-	width = ft_strlen(line);
-	if (line[width - 1] == '\n')
-		width--;
-	free(line);
-	close(fd);
-	return (width);
-}
-
 void	read_map1(struct map *map_struct, char *file_name)
 {
 	int		fd;
@@ -106,8 +62,6 @@ void	read_map1(struct map *map_struct, char *file_name)
 	}
 	if (check_map_inclument(map_struct) == -1)
 		map_struct->is_invalid = 1;
-	// if (check_map_structure(map_struct) == -1) // マップの構造が正しいかチェック
-	// 	map_struct.is_invalid = 1;
 }
 
 void	set_mlx_win(struct map *map_struct, char *file_name)
@@ -135,11 +89,11 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 	}
 }
 
-int	main(int args, char **argv)
+int	main(int argc, char **argv)
 {
 	struct map		map_struct;
 
-	(void)args;
+	(void)argc;
 	map_init(&map_struct);
 	if (read_map(&map_struct, argv[1]) != 0)
 	{

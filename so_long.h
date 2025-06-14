@@ -133,6 +133,10 @@ void    search_player(struct map *map, int *x, int *y);
 // read_map
 int     read_map(struct map *map, char *filename);
 
+//size
+int		get_map_height(char *file_name);
+int		get_map_width(char *file_name);
+
 // enemy
 void    set_enemy(struct map *map);
 int     enemy(struct map *map);
