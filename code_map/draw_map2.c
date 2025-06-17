@@ -93,3 +93,25 @@ void	draw_single_tile(t_map *map, t_images *imgs, t_coord pos,
 		mlx_put_image_to_window(map->mlx, map->win, imgs->enemy_img, pos.x
 			* map->texture.img_width, pos.y * map->texture.img_height);
 }
+
+void	render_map_tiles(t_map *map, t_images *imgs, bool *player_anim_state)
+{
+	t_coord			pos;
+	bool			next_pc1_tile_local;
+	t_render_flags	flags;
+
+	next_pc1_tile_local = true;
+	flags.next_pc1_tile_flag = &next_pc1_tile_local;
+	flags.player_anim_state = player_anim_state;
+	pos.y = 0;
+	while (pos.y < map->height)
+	{
+		pos.x = 0;
+		while (pos.x < map->width)
+		{
+			draw_single_tile(map, imgs, pos, &flags);
+			pos.x++;
+		}
+		pos.y++;
+	}
+}

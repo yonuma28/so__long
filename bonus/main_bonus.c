@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/14 20:22:28 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/14 21:24:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	move(int keycode, t_map *struct_map)
 	if (keycode == XK_s)
 		attempt_move(struct_map, 0, -1);
 	if (prev_count != struct_map->count)
-		printf("count: %d\n", struct_map->count); // printf
+		printf("count: %d\n", struct_map->count);
 }
 
 void	move_bonus(int keycode, t_map *struct_map)
@@ -50,7 +50,7 @@ void	move_bonus(int keycode, t_map *struct_map)
 	if (keycode == XK_space)
 		set_obstacle(struct_map);
 	if (prev_count != struct_map->count)
-		printf("count: %d\n", struct_map->count); // printf
+		printf("count: %d\n", struct_map->count);
 }
 
 int	handle_keypress(int keycode, t_map *struct_map)

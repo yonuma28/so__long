@@ -19,19 +19,19 @@ int	handle_keypress(int keycode, t_map *struct_map)
 
 	if (keycode == XK_Escape)
 		cleanup_and_exit(struct_map);
-	if (keycode == XK_a)
-		move_a(struct_map);
-	if (keycode == XK_d)
-		move_d(struct_map);
 	if (keycode == XK_w)
-		move_w(struct_map);
+		move_player(struct_map, 0, -1);
+	if (keycode == XK_a)
+		move_player(struct_map, -1, 0);
 	if (keycode == XK_s)
-		move_s(struct_map);
+		move_player(struct_map, 0, 1);
+	if (keycode == XK_d)
+		move_player(struct_map, 1, 0);
 	if (tmp != struct_map->count)
 	{
-		printf("count: %d, goal1: %d, %d\n", struct_map->count,
+		printf("count: %d, goal1: %d, %d\n", struct_map->count, \
 			struct_map->goal1, struct_map->goal2);
-		printf("tea: %d, teas:%d\n", struct_map->count_tea,
+		printf("tea: %d, teas:%d\n", struct_map->count_tea, \
 			struct_map->count_teas);
 	}
 	draw_map(struct_map);

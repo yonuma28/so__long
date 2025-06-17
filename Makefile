@@ -25,6 +25,7 @@ SRCS          =   main.c \
 				  size/size.c \
                   move.c \
                   read_map.c \
+				  read_map_utils.c \
                   gnl/get_next_line.c \
                   gnl/get_next_line_utils.c \
                   bonus/load_new_map.c \
@@ -32,10 +33,13 @@ SRCS          =   main.c \
                   
 SRCS_BONUS    =   bonus/main_bonus.c \
                   bonus/move_bonus.c \
+				  bonus/move_bonus2.c \
                   code_map/texture.c \
                   code_map/draw_map.c \
 				  code_map/draw_map2.c \
+				  code_map/draw_map3.c \
                   read_map.c \
+				  read_map_utils.c \
 				  free/free_map.c \
                   bonus/load_new_map.c \
                   bonus/enemy.c \
