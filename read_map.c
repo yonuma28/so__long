@@ -13,19 +13,12 @@
 #include "libft/libft.h"
 #include "so_long.h"
 
-int	read_map(t_map *map, char *filename)
+static int	read_map_lines(t_map *map, int fd)
 {
 	int		height;
-	int		status;
-	int		fd;
 	char	*line;
 	char	*temp;
 
-	if (get_map_height_and_width(filename, &map->height, &map->width) == 0)
-		return (-1);
-	fd = open(filename, O_RDONLY);
-	if (map->height == 0 || !allocate_map(map, map->height) || fd < 0)
-		return (-1);
 	height = 0;
 	while (1)
 	{
@@ -40,13 +33,36 @@ int	read_map(t_map *map, char *filename)
 		height++;
 	}
 	map->map[height] = NULL;
+	return (height);
+}
+
+static int	validate_map(t_map *map)
+{
+	int	status;
+
 	status = 0;
-	close(fd);
 	count_items(map);
 	status |= check_map_inclument(map);
 	status |= check_map_char(map);
 	status |= check_map_wall(map);
 	status |= check_map_invalid(map);
+	return (status);
+}
+
+int	read_map(t_map *map, char *filename)
+{
+	int	fd;
+	int	height;
+	int	status;
+
+	if (get_map_height_and_width(filename, &map->height, &map->width) == 0)
+		return (-1);
+	fd = open(filename, O_RDONLY);
+	if (map->height == 0 || !allocate_map(map, map->height) || fd < 0)
+		return (-1);
+	height = read_map_lines(map, fd);
+	close(fd);
+	status = validate_map(map);
 	if (status == -1)
 		return (status);
 	return (0);

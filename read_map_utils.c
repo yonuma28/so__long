@@ -10,14 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "libft/libft.h"
+#include "so_long.h"
+
+static void	update_map_size(char *line, int *height, int *width)
+{
+	int	line_length;
+
+	line_length = ft_strlen(line);
+	if (line_length > 0 && line[line_length - 1] == '\n')
+		line_length--;
+	if (line_length > *width)
+		*width = line_length;
+	(*height)++;
+}
 
 int	get_map_height_and_width(char *filename, int *height, int *width)
 {
 	int		fd;
 	char	*line;
-	int		line_length;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -29,14 +40,7 @@ int	get_map_height_and_width(char *filename, int *height, int *width)
 		return (0);
 	while (line)
 	{
-		line_length = ft_strlen(line);
-		if (line_length > 0 && line[line_length - 1] == '\n')
-		{
-			line_length--;
-		}
-		if (line_length > *width)
-			*width = line_length;
-		(*height)++;
+		update_map_size(line, height, width);
 		free(line);
 		line = get_next_line(fd);
 	}

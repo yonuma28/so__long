@@ -29,9 +29,9 @@ int	handle_keypress(int keycode, t_map *struct_map)
 		move_player(struct_map, 1, 0);
 	if (tmp != struct_map->count)
 	{
-		printf("count: %d, goal1: %d, %d\n", struct_map->count, \
+		printf("count: %d, goal1: %d, %d\n", struct_map->count,
 			struct_map->goal1, struct_map->goal2);
-		printf("tea: %d, teas:%d\n", struct_map->count_tea, \
+		printf("tea: %d, teas:%d\n", struct_map->count_tea,
 			struct_map->count_teas);
 	}
 	draw_map(struct_map);

@@ -12,39 +12,14 @@
 
 #include "so_long.h"
 
-void	itoa(int num, char *str)
+static void	reverse_str(char *str, int len)
 {
-	int		i;
-	int		isNegative;
 	int		start;
 	int		end;
 	char	temp;
 
-	i = 0;
-	isNegative = 0;
-	if (num == 0)
-	{
-		str[i++] = '0';
-		str[i] = '\0';
-		return ;
-	}
-	if (num < 0)
-	{
-		isNegative = 1;
-		num = -num;
-	}
-	while (num != 0)
-	{
-		str[i++] = num % 10 + '0';
-		num = num / 10;
-	}
-	if (isNegative)
-	{
-		str[i++] = '-';
-	}
-	str[i] = '\0';
 	start = 0;
-	end = i - 1;
+	end = len - 1;
 	while (start < end)
 	{
 		temp = str[start];
@@ -53,4 +28,35 @@ void	itoa(int num, char *str)
 		start++;
 		end--;
 	}
+}
+
+void	itoa(int num, char *str)
+{
+	int	i;
+	int	is_negative;
+	int	n;
+
+	i = 0;
+	is_negative = 0;
+	n = num;
+	if (n == 0)
+	{
+		str[i++] = '0';
+		str[i] = '\0';
+		return ;
+	}
+	if (n < 0)
+	{
+		is_negative = 1;
+		n = -n;
+	}
+	while (n != 0)
+	{
+		str[i++] = n % 10 + '0';
+		n = n / 10;
+	}
+	if (is_negative)
+		str[i++] = '-';
+	str[i] = '\0';
+	reverse_str(str, i);
 }

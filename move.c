@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "so_long.h"
 
 void	find_player(t_map *map)
@@ -81,8 +80,8 @@ void	move_player(t_map *map, int dx, int dy)
 	find_player(map);
 	next_x = map->player_x + dx;
 	next_y = map->player_y + dy;
-	if (next_x < 0 || next_x >= map->width || \
-		next_y < 0 || next_y >= map->height)
+	if (next_x < 0 || next_x >= map->width || next_y < 0
+		|| next_y >= map->height)
 		return ;
 	if (map->map[next_y][next_x] == '1')
 		return ;

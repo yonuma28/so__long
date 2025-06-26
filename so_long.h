@@ -177,7 +177,7 @@ void			move_a_bonus(t_map *map);
 void			move_s_bonus(t_map *map);
 void			move_w_bonus(t_map *map);
 
-//move3
+// move3
 void			process_goal_achievement(t_map *map);
 void			collect_item_at_pos(t_map *map, t_coord pos);
 void			update_player_position_on_map(t_map *map, t_coord old_pos,
@@ -185,10 +185,28 @@ void			update_player_position_on_map(t_map *map, t_coord old_pos,
 void			handle_horizontal_move(t_map *map, t_coord p_pos, int dx);
 bool			process_one_gravity_step(t_map *map, t_coord *current_pos);
 
-//read_map
+// read_map
 int				get_map_height_and_width(char *filename, int *height,
 					int *width);
 char			**allocate_map(t_map *map, int height);
 void			count_items(t_map *map);
+
+// enemy
+void			execute_enemy_move(t_map *map, t_coord old_pos,
+					t_coord new_pos);
+bool			try_specific_move(t_map *map, t_coord enemy_pos,
+					t_coord next_pos);
+bool			try_move_x_axis(t_map *map, t_coord enemy_pos,
+					t_coord player_pos);
+bool			try_move_y_axis(t_map *map, t_coord enemy_pos,
+					t_coord player_pos);
+bool			try_move_enemy_in_direction(t_map *map, t_coord enemy_pos,
+					t_coord player_pos);
+void			game_over(t_map *map);
+void			set_enemy(t_map *map);
+
+//bonus
+void			move(int keycode, t_map *struct_map);
+void			move_bonus(int keycode, t_map *struct_map);
 
 #endif

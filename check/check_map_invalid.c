@@ -13,22 +13,6 @@
 #include "../libft/libft.h"
 #include "../so_long.h"
 
-void	search_player(t_map *map, int *x, int *y)
-{
-	*y = 0;
-	while (*y < map->height)
-	{
-		*x = 0;
-		while (*x < map->width)
-		{
-			if (map->map[*y][*x] == 'P')
-				return ;
-			(*x)++;
-		}
-		(*y)++;
-	}
-}
-
 static char	**create_map_copy(t_map *map)
 {
 	char	**copy;
@@ -54,16 +38,16 @@ static char	**create_map_copy(t_map *map)
 	return (copy);
 }
 
-static void	flood_fill(char **map_copy, int height, int width, int y, int x)
+static void	flood_fill(t_map *map, char **map_copy, int y, int x)
 {
-	if (y < 0 || y >= height || x < 0 || x >= width || map_copy[y][x] == '1'
-		|| map_copy[y][x] == 'F')
+	if (y < 0 || y >= map->height || x < 0 || x >= map->width
+		|| map_copy[y][x] == '1' || map_copy[y][x] == 'F')
 		return ;
 	map_copy[y][x] = 'F';
-	flood_fill(map_copy, height, width, y + 1, x);
-	flood_fill(map_copy, height, width, y - 1, x);
-	flood_fill(map_copy, height, width, y, x + 1);
-	flood_fill(map_copy, height, width, y, x - 1);
+	flood_fill(map, map_copy, y + 1, x);
+	flood_fill(map, map_copy, y - 1, x);
+	flood_fill(map, map_copy, y, x + 1);
+	flood_fill(map, map_copy, y, x - 1);
 }
 
 static void	free_map_copy(char **map_copy, int height)
@@ -79,6 +63,27 @@ static void	free_map_copy(char **map_copy, int height)
 	free(map_copy);
 }
 
+static int	check_unreachable(t_map *map, char **map_copy)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if ((map->map[y][x] == 'C' || map->map[y][x] == 'E')
+				&& map_copy[y][x] != 'F')
+				return (1);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 int	check_map_invalid(t_map *map)
 {
 	char	**map_copy;
@@ -89,23 +94,12 @@ int	check_map_invalid(t_map *map)
 	if (!map_copy)
 		return (-1);
 	search_player(map, &x, &y);
-	flood_fill(map_copy, map->height, map->width, y, x);
-	y = 0;
-	while (y < map->height)
+	flood_fill(map, map_copy, y, x);
+	if (check_unreachable(map, map_copy))
 	{
-		x = 0;
-		while (x < map->width)
-		{
-			if ((map->map[y][x] == 'C' || map->map[y][x] == 'E')
-				&& map_copy[y][x] != 'F')
-			{
-				map->is_invalid = 1;
-				free_map_copy(map_copy, map->height);
-				return (-1);
-			}
-			x++;
-		}
-		y++;
+		map->is_invalid = 1;
+		free_map_copy(map_copy, map->height);
+		return (-1);
 	}
 	free_map_copy(map_copy, map->height);
 	return (0);
