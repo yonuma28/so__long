@@ -12,27 +12,7 @@
 
 #include "../so_long.h"
 
-static void	apply_gravity_after_jump(t_map *map)
-{
-	t_coord	current_pos;
-
-	current_pos.x = map->player_x;
-	current_pos.y = map->player_y;
-	process_one_gravity_step(map, &current_pos);
-}
-
-void	apply_continuous_gravity(t_map *map)
-{
-	t_coord	current_pos;
-
-	if (map->is_jumping)
-		return ;
-	current_pos.x = map->player_x;
-	current_pos.y = map->player_y;
-	process_one_gravity_step(map, &current_pos);
-}
-
-static void	calculate_jump_destination(t_map *map, t_coord start_pos,
+void	calculate_jump_destination(t_map *map, t_coord start_pos,
 		t_jump_result *result)
 {
 	int		i;
@@ -63,7 +43,7 @@ static void	calculate_jump_destination(t_map *map, t_coord start_pos,
 	}
 }
 
-static void	collect_on_jump_path(t_map *map, t_coord start_pos,
+void	collect_on_jump_path(t_map *map, t_coord start_pos,
 		int jump_distance)
 {
 	int		i;

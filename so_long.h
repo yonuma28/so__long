@@ -205,8 +205,15 @@ bool			try_move_enemy_in_direction(t_map *map, t_coord enemy_pos,
 void			game_over(t_map *map);
 void			set_enemy(t_map *map);
 
-//bonus
+// bonus
 void			move(int keycode, t_map *struct_map);
 void			move_bonus(int keycode, t_map *struct_map);
+int				apply_gravity(t_map *map);
+void			apply_gravity_after_jump(t_map *map);
+void			apply_continuous_gravity(t_map *map);
+void			collect_on_jump_path(t_map *map, t_coord start_pos,
+					int jump_distance);
+void			calculate_jump_destination(t_map *map, t_coord start_pos,
+					t_jump_result *result);
 
 #endif

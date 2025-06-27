@@ -30,6 +30,17 @@ static void	reverse_str(char *str, int len)
 	}
 }
 
+static int	itoa_zero(char *str, int n, int i)
+{
+	if (n == 0)
+	{
+		str[i++] = '0';
+		str[i] = '\0';
+		return (0);
+	}
+	return (1);
+}
+
 void	itoa(int num, char *str)
 {
 	int	i;
@@ -39,12 +50,8 @@ void	itoa(int num, char *str)
 	i = 0;
 	is_negative = 0;
 	n = num;
-	if (n == 0)
-	{
-		str[i++] = '0';
-		str[i] = '\0';
+	if (itoa_zero(str, n, i) == 0)
 		return ;
-	}
 	if (n < 0)
 	{
 		is_negative = 1;

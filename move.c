@@ -47,7 +47,7 @@ static void	check_and_exit_on_goal(t_map *map)
 	map->goal2 = true;
 }
 
-static void	update_player_position(t_map *map, int next_x, int next_y)
+void	update_player_position(t_map *map, int next_x, int next_y)
 {
 	char	target_tile;
 
@@ -61,7 +61,7 @@ static void	update_player_position(t_map *map, int next_x, int next_y)
 	map->count++;
 }
 
-static void	process_move(t_map *map, int next_x, int next_y)
+void	process_move(t_map *map, int next_x, int next_y)
 {
 	char	target_tile;
 

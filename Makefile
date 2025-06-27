@@ -35,13 +35,14 @@ SRCS          =   main.c \
 SRCS_BONUS    =   bonus/main_bonus.c \
                   bonus/move_bonus.c \
 				  bonus/move_bonus2.c \
+				  bonus/move_bonus3.c \
 				  bonus/enemy_move.c \
 				  bonus/enemy_utils.c \
 				  bonus/main_move_func.c \
+				  bonus/gravity.c \
                   code_map/texture.c \
                   code_map/draw_map.c \
 				  code_map/draw_map2.c \
-				  code_map/draw_map3.c \
                   read_map.c \
 				  read_map_utils.c \
 				  free/free_map.c \
@@ -56,6 +57,7 @@ SRCS_BONUS    =   bonus/main_bonus.c \
                   gnl/get_next_line.c \
                   gnl/get_next_line_utils.c \
                   itoa.c \
+				  check/utils.c \
                   move.c
 
 LIBFT_DIR     = libft

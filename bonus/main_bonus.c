@@ -60,39 +60,6 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 	}
 }
 
-int	apply_gravity(t_map *map)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	search_player(map, &x, &y);
-	if (map->goal2)
-	{
-		usleep(50000);
-		if (map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'O')
-		{
-			map->is_falling = false;
-			return (0);
-		}
-		if (map->map[y + 1][x] == 'E')
-		{
-			map->goal3 = true;
-			printf("GOAL!!\nresult: %d\n", map->count);
-			cleanup_and_exit(map);
-		}
-		map->is_falling = true;
-		if (map->map[y][x] == 'P' && map->map[y + 1][x] == '0')
-		{
-			map->map[y + 1][x] = 'P';
-			map->map[y][x] = '0';
-		}
-	}
-	draw_map(map);
-	return (0);
-}
-
 int	loop_hook(t_map *map)
 {
 	apply_gravity(map);

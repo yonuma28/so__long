@@ -19,14 +19,14 @@ void	move(int keycode, t_map *struct_map)
 	prev_count = struct_map->count;
 	if (keycode == XK_Escape)
 		cleanup_and_exit(struct_map);
-	if (keycode == XK_a)
-		attempt_move(struct_map, -1, 0);
-	if (keycode == XK_d)
-		attempt_move(struct_map, 1, 0);
 	if (keycode == XK_w)
-		attempt_move(struct_map, 0, 1);
+		move_player(struct_map, 0, -1);
+	if (keycode == XK_a)
+		move_player(struct_map, -1, 0);
 	if (keycode == XK_s)
-		attempt_move(struct_map, 0, -1);
+		move_player(struct_map, 0, 1);
+	if (keycode == XK_d)
+		move_player(struct_map, 1, 0);
 	if (prev_count != struct_map->count)
 		printf("count: %d\n", struct_map->count);
 }
