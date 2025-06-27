@@ -38,32 +38,6 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	return (0);
 }
 
-void	read_map1(struct map *map_struct, char *file_name)
-{
-	int		fd;
-	int		height;
-	char	*line;
-	char	*tmp;
-
-	fd = open(file_name, O_RDONLY);
-	map_struct->map = (char **)malloc(sizeof(char *) * 9);
-	height = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		tmp = ft_strchr(line, '\n');
-		if (tmp)
-			*tmp = '\0';
-		map_struct->map[height] = ft_strdup(line);
-		free(line);
-		height++;
-	}
-	if (check_map_inclument(map_struct) == -1)
-		map_struct->is_invalid = 1;
-}
-
 void	set_mlx_win(struct map *map_struct, char *file_name)
 {
 	int	map_width;

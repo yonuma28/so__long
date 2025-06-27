@@ -29,8 +29,7 @@ SRCS          =   main.c \
 				  read_map_utils.c \
                   gnl/get_next_line.c \
                   gnl/get_next_line_utils.c \
-                  bonus/load_new_map.c \
-                  itoa.c
+                  bonus/load_new_map.c 
                   
 SRCS_BONUS    =   bonus/main_bonus.c \
                   bonus/move_bonus.c \
@@ -56,7 +55,6 @@ SRCS_BONUS    =   bonus/main_bonus.c \
 				  size/size.c \
                   gnl/get_next_line.c \
                   gnl/get_next_line_utils.c \
-                  itoa.c \
 				  check/utils.c \
                   move.c
 
