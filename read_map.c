@@ -13,7 +13,7 @@
 #include "libft/libft.h"
 #include "so_long.h"
 
-static int	read_map_lines(t_map *map, int fd)
+static void	read_map_lines(t_map *map, int fd)
 {
 	int		height;
 	char	*line;
@@ -33,7 +33,6 @@ static int	read_map_lines(t_map *map, int fd)
 		height++;
 	}
 	map->map[height] = NULL;
-	return (height);
 }
 
 static int	validate_map(t_map *map)
@@ -52,7 +51,6 @@ static int	validate_map(t_map *map)
 int	read_map(t_map *map, char *filename)
 {
 	int	fd;
-	int	height;
 	int	status;
 
 	if (get_map_height_and_width(filename, &map->height, &map->width) == 0)
@@ -60,7 +58,7 @@ int	read_map(t_map *map, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (map->height == 0 || !allocate_map(map, map->height) || fd < 0)
 		return (-1);
-	height = read_map_lines(map, fd);
+	read_map_lines(map, fd);
 	close(fd);
 	status = validate_map(map);
 	if (status == -1)

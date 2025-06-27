@@ -15,7 +15,10 @@
 
 void	load_new_map(struct map *map_struct)
 {
+	free_map_data(map_struct);
 	map_struct->map = (char **)malloc(sizeof(char *) * 10);
+	if (map_struct->map == NULL)
+		return ; //これっていいのか？
 	map_struct->map[0] = ft_strdup("111111111111111111111111111");
 	map_struct->map[1] = ft_strdup("100000000000000000000000001");
 	map_struct->map[2] = ft_strdup("10000C000000000000000000001");

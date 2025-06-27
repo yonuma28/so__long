@@ -21,7 +21,11 @@ void	search_player(t_map *map, int *x, int *y)
 		while (*x < map->width)
 		{
 			if (map->map[*y][*x] == 'P')
+			{
+				map->player_x = *x;
+				map->player_y = *y;
 				return ;
+			}
 			(*x)++;
 		}
 		(*y)++;
