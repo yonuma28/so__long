@@ -68,7 +68,7 @@ FT_PRINTF_INC = -I$(FT_PRINTF_DIR)
 
 OBJS          =   $(SRCS:.c=.o)
 OBJS_BONUS    =   $(SRCS_BONUS:.c=.o)
-CC            =   cc -Wextra -Wall -ggdb3
+CC            =   cc -Wextra -Wall -Werror
 LIBX_FLAGS    =   libmlx/libmlx_Linux.a libmlx/libmlx.a -lX11 -lXext -lm -lz 
 
 all:          $(NAME)
