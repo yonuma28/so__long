@@ -35,6 +35,7 @@ SRCS_BONUS    =   bonus/main_bonus.c \
                   bonus/move_bonus.c \
 				  bonus/move_bonus2.c \
 				  bonus/move_bonus3.c \
+				  bonus/move_bonus4.c \
 				  bonus/enemy_move.c \
 				  bonus/enemy_utils.c \
 				  bonus/main_move_func.c \

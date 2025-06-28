@@ -12,12 +12,6 @@
 
 #include "../so_long.h"
 
-void	process_goal_achievement(t_map *map)
-{
-	printf("GOAL!!\nresult: %d\n", map->count);
-	cleanup_and_exit(map);
-}
-
 void	collect_item_at_pos(t_map *map, t_coord pos)
 {
 	if (map->map[pos.y][pos.x] == 'C')
@@ -55,6 +49,19 @@ void	handle_horizontal_move(t_map *map, t_coord p_pos, int dx)
 	}
 }
 
+static bool	handle_gravity_collect_and_move(t_map *map, t_coord *current_pos,
+		t_coord next_pos_down, char tile_below)
+{
+	if (tile_below == 'C')
+	{
+		map->count_tea++;
+		map->map[next_pos_down.y][next_pos_down.x] = '0';
+	}
+	update_player_position_on_map(map, *current_pos, next_pos_down);
+	*current_pos = next_pos_down;
+	return (true);
+}
+
 bool	process_one_gravity_step(t_map *map, t_coord *current_pos)
 {
 	t_coord	next_pos_down;
@@ -67,21 +74,13 @@ bool	process_one_gravity_step(t_map *map, t_coord *current_pos)
 	tile_below = map->map[next_pos_down.y][next_pos_down.x];
 	if (tile_below == '1' || tile_below == 'O')
 		return (false);
-	else if (tile_below == 'E')
+	if (tile_below == 'E')
 	{
 		process_goal_achievement(map);
 		return (false);
 	}
-	else if (tile_below == '0' || tile_below == 'C')
-	{
-		if (tile_below == 'C')
-		{
-			map->count_tea++;
-			map->map[next_pos_down.y][next_pos_down.x] = '0';
-		}
-		update_player_position_on_map(map, *current_pos, next_pos_down);
-		*current_pos = next_pos_down;
-		return (true);
-	}
+	if (tile_below == '0' || tile_below == 'C')
+		return (handle_gravity_collect_and_move(map, current_pos, next_pos_down,
+				tile_below));
 	return (false);
 }

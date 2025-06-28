@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 11:49:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/14 21:24:31 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/28 12:58:35 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,6 @@ void			collect_on_jump_path(t_map *map, t_coord start_pos,
 					int jump_distance);
 void			calculate_jump_destination(t_map *map, t_coord start_pos,
 					t_jump_result *result);
+void			process_goal_achievement(t_map *map);
 
 #endif

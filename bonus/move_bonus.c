@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:57:26 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/14 21:16:15 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/28 12:53:18 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	calculate_jump_destination(t_map *map, t_coord start_pos,
+static void	search_jump_path(t_map *map, t_coord start_pos,
 		t_jump_result *result)
 {
 	int		i;
 	t_coord	check_pos;
 	char	tile_at_check_pos;
 
-	result->final_pos = start_pos;
-	result->distance = 0;
-	result->reached_exit = false;
 	i = 1;
 	while (i <= 3)
 	{
@@ -43,8 +40,16 @@ void	calculate_jump_destination(t_map *map, t_coord start_pos,
 	}
 }
 
-void	collect_on_jump_path(t_map *map, t_coord start_pos,
-		int jump_distance)
+void	calculate_jump_destination(t_map *map, t_coord start_pos,
+		t_jump_result *result)
+{
+	result->final_pos = start_pos;
+	result->distance = 0;
+	result->reached_exit = false;
+	search_jump_path(map, start_pos, result);
+}
+
+void	collect_on_jump_path(t_map *map, t_coord start_pos, int jump_distance)
 {
 	int		i;
 	t_coord	path_pos;

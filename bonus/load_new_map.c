@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_new_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:18:38 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/14 20:09:12 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/28 12:41:10 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	load_new_map(struct map *map_struct)
 	free_map_data(map_struct);
 	map_struct->map = (char **)malloc(sizeof(char *) * 10);
 	if (map_struct->map == NULL)
-		return ; //これっていいのか？
+	{
+		cleanup_and_exit(map_struct);
+	}
 	map_struct->map[0] = ft_strdup("111111111111111111111111111");
 	map_struct->map[1] = ft_strdup("100000000000000000000000001");
 	map_struct->map[2] = ft_strdup("10000C000000000000000000001");
