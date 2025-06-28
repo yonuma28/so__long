@@ -43,8 +43,8 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 
 	map_width = get_map_width(file_name);
 	map_height = get_map_height(file_name);
-	window_width = map_width * 64;
-	window_height = map_height * 64;
+	window_width = map_width * 50;
+	window_height = map_height * 50;
 	map_struct->mlx = mlx_init();
 	if (map_struct->mlx == NULL)
 	{
