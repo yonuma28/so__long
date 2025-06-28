@@ -3,36 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              #+#  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-06-27 00:14:57 by yonuma            #+#    #+#             */
-/*   Updated: 2025-06-27 00:14:57 by yonuma           ###   ########.fr       */
+/*   Created: 2025/06/27 00:14:57 by yonuma            #+#    #+#             */
+/*   Updated: 2025/06/28 12:26:43 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// static void	move_player_down(t_map *map, int x, int y)
-// {
-// 	if (map->map[y][x] == 'P' && map->map[y + 1][x] == '0')
-// 	{
-// 		map->map[y + 1][x] = 'P';
-// 		map->map[y][x] = '0';
-// 	}
-// }
-
 int	apply_gravity(t_map *map)
 {
-	static int	count = 0;
 	int			x;
 	int			y;
 
 	x = 0;
 	y = 0;
 	search_player(map, &x, &y);
-	if (map->goal2 && count == 100)
+	if (map->goal2)
 	{
-		count == 0;
+		usleep(15000);
 		if (map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'O')
 		{
 			map->is_falling = false;
@@ -51,7 +41,6 @@ int	apply_gravity(t_map *map)
 			map->map[y][x] = '0';
 		}
 	}
-	count++;
 	draw_map(map);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 03:24:38 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/14 20:58:25 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/28 12:39:20 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	check_and_exit_on_goal(t_map *map)
 		printf("GOAL!!\n");
 		cleanup_and_exit(map);
 	}
-	map->goal2 = true;
+	if (map->count_tea - 1 == map->count_teas)
+		map->goal2 = true;
 }
 
 void	update_player_position(t_map *map, int next_x, int next_y)
