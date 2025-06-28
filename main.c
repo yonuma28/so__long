@@ -59,6 +59,12 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 	}
 }
 
+int	handle_destroy(t_map *map)
+{
+	cleanup_and_exit(map);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	struct map	map_struct;
@@ -76,6 +82,7 @@ int	main(int argc, char **argv)
 		return (1);
 	draw_map(&map_struct);
 	mlx_key_hook(map_struct.win, handle_keypress, &map_struct);
+	mlx_hook(map_struct.win, 17, 0L, handle_destroy, &map_struct);
 	mlx_loop(map_struct.mlx);
 	return (0);
 }

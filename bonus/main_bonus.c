@@ -67,6 +67,12 @@ int	loop_hook(t_map *map)
 	return (0);
 }
 
+int	handle_destroy(t_map *map)
+{
+	cleanup_and_exit(map);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	struct map	map_struct;
@@ -85,6 +91,7 @@ int	main(int argc, char **argv)
 	draw_map(&map_struct);
 	mlx_key_hook(map_struct.win, handle_keypress, &map_struct);
 	mlx_loop_hook(map_struct.mlx, loop_hook, &map_struct);
+	mlx_hook(map_struct.win, 17, 0L, handle_destroy, &map_struct);
 	mlx_loop(map_struct.mlx);
 	return (0);
 }
