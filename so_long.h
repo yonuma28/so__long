@@ -6,7 +6,7 @@
 /*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 11:49:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/28 12:58:35 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/28 13:34:54 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <time.h>
 # include <unistd.h>
+# include "ft_printf/ft_printf.h"
 
 typedef struct texture
 {
