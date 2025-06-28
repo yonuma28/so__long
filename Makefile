@@ -62,6 +62,10 @@ LIBFT_DIR     = libft
 LIBFT_LIB     = $(LIBFT_DIR)/libft.a
 LIBFT_INC     = -I$(LIBFT_DIR)
 
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
+FT_PRINTF_INC = -I$(FT_PRINTF_DIR)
+
 OBJS          =   $(SRCS:.c=.o)
 OBJS_BONUS    =   $(SRCS_BONUS:.c=.o)
 CC            =   cc -Wextra -Wall -ggdb3
@@ -71,21 +75,31 @@ all:          $(NAME)
 
 bonus:        $(NAME_BONUS)
 
-$(NAME):      $(OBJS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(LIBX_FLAGS) -o $(NAME) $(LIBFT_INC)
+$(LIBFT_LIB):
+	make -C $(LIBFT_DIR)
 
-$(NAME_BONUS)     : $(OBJS_BONUS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_LIB) $(LIBX_FLAGS) -o $(NAME_BONUS) $(LIBFT_INC)
+$(FT_PRINTF_LIB):
+	make -C $(FT_PRINTF_DIR)
+
+$(NAME): $(OBJS) $(LIBFT_LIB) $(FT_PRINTF_LIB)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(FT_PRINTF_LIB) $(LIBX_FLAGS) -o $(NAME) $(LIBFT_INC) $(FT_PRINTF_INC)
+
+$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT_LIB) $(FT_PRINTF_LIB)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_LIB) $(FT_PRINTF_LIB) $(LIBX_FLAGS) -o $(NAME_BONUS) $(LIBFT_INC) $(FT_PRINTF_INC)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)
+	make -C $(LIBFT_DIR) clean
+	make -C $(FT_PRINTF_DIR) clean
 
 norm:
 	@norminette $(SRCS) $(SRCS_BONUS) so_long.h
 
-fclean:       clean
+fclean:			clean
 	$(RM) $(NAME) $(NAME_BONUS)
+	make -C $(LIBFT_DIR) fclean
+	make -C $(FT_PRINTF_DIR) fclean
 
-re:           fclean all
+re:				fclean all
 
-.PHONY:       all clean fclean re bonus norm
+.PHONY:			all clean fclean re bonus norm
