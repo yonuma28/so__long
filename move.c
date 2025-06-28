@@ -6,7 +6,7 @@
 /*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 03:24:38 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/28 12:39:20 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/28 13:18:36 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	check_and_exit_on_goal(t_map *map)
 	if (map->count_tea == map->count_teas)
 	{
 		map->count++;
-		printf("count: %d\n", map->count);
+		ft_printf("count: %d\n", map->count);
 		printf("GOAL!!\n");
 		cleanup_and_exit(map);
 	}

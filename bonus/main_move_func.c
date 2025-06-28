@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_move_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonuma <yonuma@student.42.fr>              #+#  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-06-26 15:13:42 by yonuma            #+#    #+#             */
-/*   Updated: 2025-06-26 15:13:42 by yonuma           ###   ########.fr       */
+/*   Created: 2025/06/26 15:13:42 by yonuma            #+#    #+#             */
+/*   Updated: 2025/06/28 13:18:43 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	move(int keycode, t_map *struct_map)
 	if (keycode == XK_d)
 		move_player(struct_map, 1, 0);
 	if (prev_count != struct_map->count)
-		printf("count: %d\n", struct_map->count);
+		ft_printf("count: %d\n", struct_map->count);
 }
 
 void	move_bonus(int keycode, t_map *struct_map)
@@ -49,5 +49,5 @@ void	move_bonus(int keycode, t_map *struct_map)
 	if (keycode == XK_space)
 		set_obstacle(struct_map);
 	if (prev_count != struct_map->count)
-		printf("count: %d\n", struct_map->count);
+		ft_printf("count: %d\n", struct_map->count);
 }

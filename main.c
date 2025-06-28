@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/14 11:59:32 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/28 13:19:07 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_keypress(int keycode, t_map *struct_map)
 	if (keycode == XK_d)
 		move_player(struct_map, 1, 0);
 	if (tmp != struct_map->count)
-		printf("count: %d\n", struct_map->count);
+		ft_printf("count: %d\n", struct_map->count);
 	draw_map(struct_map);
 	return (0);
 }
@@ -47,14 +47,14 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 	map_struct->mlx = mlx_init();
 	if (map_struct->mlx == NULL)
 	{
-		fprintf(stderr, "Error\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 	map_struct->win = mlx_new_window(map_struct->mlx, window_width,
 			window_height, "so_long");
 	if (map_struct->win == NULL)
 	{
-		fprintf(stderr, "Error\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 }
