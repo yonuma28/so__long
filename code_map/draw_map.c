@@ -6,7 +6,7 @@
 /*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:42:36 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/28 13:19:32 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/28 14:07:08 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*load_img_checked(void *mlx_ptr, char *path, int *width, int *height)
 	img = mlx_xpm_file_to_image(mlx_ptr, path, width, height);
 	if (img == NULL)
 	{
-		ft_printf("Error: Failed to load image: %s\n", path);
+		ft_printf("Error: load image: %s\n", path);
 		exit(EXIT_FAILURE);
 	}
 	return (img);

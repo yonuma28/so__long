@@ -6,7 +6,7 @@
 /*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 00:14:57 by yonuma            #+#    #+#             */
-/*   Updated: 2025/06/28 13:04:20 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/28 13:55:41 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,6 @@ void	apply_gravity_after_jump(t_map *map)
 {
 	t_coord	current_pos;
 
-	current_pos.x = map->player_x;
-	current_pos.y = map->player_y;
-	process_one_gravity_step(map, &current_pos);
-}
-
-void	apply_continuous_gravity(t_map *map)
-{
-	t_coord	current_pos;
-
-	if (map->is_jumping)
-		return ;
 	current_pos.x = map->player_x;
 	current_pos.y = map->player_y;
 	process_one_gravity_step(map, &current_pos);

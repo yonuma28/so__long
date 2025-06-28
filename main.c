@@ -6,7 +6,7 @@
 /*   By: yonuma <yonuma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:46:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/28 13:19:07 by yonuma           ###   ########.fr       */
+/*   Updated: 2025/06/28 14:05:12 by yonuma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	set_mlx_win(struct map *map_struct, char *file_name)
 	map_struct->mlx = mlx_init();
 	if (map_struct->mlx == NULL)
 	{
-		ft_printf("Error\n");
+		ft_printf("Error: mlx\n");
 		exit(1);
 	}
 	map_struct->win = mlx_new_window(map_struct->mlx, window_width,
 			window_height, "so_long");
 	if (map_struct->win == NULL)
 	{
-		ft_printf("Error\n");
+		ft_printf("Error: win\n");
 		exit(1);
 	}
 }
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	map_init(&map_struct);
 	if (read_map(&map_struct, argv[1]) != 0)
 	{
-		printf("Error\n");
+		ft_printf("Error: map\n");
 		return (1);
 	}
 	set_mlx_win(&map_struct, argv[1]);
